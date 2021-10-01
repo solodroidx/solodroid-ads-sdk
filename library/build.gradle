@@ -42,7 +42,6 @@ dependencies {
     implementation('com.mopub:mopub-sdk-banner:5.18.0@aar') {
         transitive = true
     }
-    implementation "androidx.multidex:multidex:2.0.1"
     implementation('com.mopub:mopub-sdk-fullscreen:5.18.0@aar') {
         transitive = true
     }
@@ -52,5 +51,9 @@ dependencies {
     implementation 'com.applovin.mediation:google-adapter:20.3.0.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.6.0.1'
     implementation 'com.mopub.mediation:facebookaudiencenetwork:6.7.0.0'
+
+    //GDPR
+    implementation 'com.google.android.ump:user-messaging-platform:2.0.0'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.8'
 
 }
