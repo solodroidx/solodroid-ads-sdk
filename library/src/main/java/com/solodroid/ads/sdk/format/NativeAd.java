@@ -56,6 +56,7 @@ public class NativeAd {
         private String adMobNativeId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
+        private boolean legacyGDPR = false;
 
         public Builder(Activity activity) {
             this.activity = activity;
@@ -91,6 +92,11 @@ public class NativeAd {
             return this;
         }
 
+        public NativeAd.Builder setLegacyGDPR(boolean legacyGDPR) {
+            this.legacyGDPR = legacyGDPR;
+            return this;
+        }
+
         public void loadNativeAd() {
 
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
@@ -103,7 +109,7 @@ public class NativeAd {
                 startapp_native_title = activity.findViewById(R.id.startapp_native_title);
                 startapp_native_description = activity.findViewById(R.id.startapp_native_description);
                 startapp_native_button = activity.findViewById(R.id.startapp_native_button);
-                startapp_native_button.setOnClickListener(v1 -> startapp_native_ad.performClick());
+                startapp_native_button.setOnClickListener(v -> startapp_native_ad.performClick());
                 startapp_native_background = activity.findViewById(R.id.startapp_native_background);
 
                 switch (adNetwork) {
@@ -133,7 +139,7 @@ public class NativeAd {
                                         }
                                     })
                                     .build();
-                            adLoader.loadAd(Tools.getAdRequest());
+                            adLoader.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                         } else {
                             Log.d(TAG, "AdMob Native Ad has been loaded");
                         }

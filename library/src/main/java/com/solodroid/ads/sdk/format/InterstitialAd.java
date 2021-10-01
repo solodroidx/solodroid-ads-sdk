@@ -51,6 +51,8 @@ public class InterstitialAd {
         private int placementStatus = 1;
         private int interval = 3;
 
+        private boolean legacyGDPR = false;
+
         public Builder(Activity activity) {
             this.activity = activity;
         }
@@ -104,11 +106,16 @@ public class InterstitialAd {
             return this;
         }
 
+        public InterstitialAd.Builder setLegacyGDPR(boolean legacyGDPR) {
+            this.legacyGDPR = legacyGDPR;
+            return this;
+        }
+
         public void loadInterstitialAd() {
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (adNetwork) {
                     case ADMOB:
-                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(), new InterstitialAdLoadCallback() {
+                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
                             @Override
                             public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
                                 adMobInterstitialAd = interstitialAd;

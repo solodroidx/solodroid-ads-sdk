@@ -60,6 +60,7 @@ public class NativeAdViewPager {
         private String adMobNativeId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
+        private boolean legacyGDPR = false;
 
         public Builder(Activity activity, View view) {
             this.activity = activity;
@@ -93,6 +94,11 @@ public class NativeAdViewPager {
 
         public NativeAdViewPager.Builder setDarkTheme(boolean darkTheme) {
             this.darkTheme = darkTheme;
+            return this;
+        }
+
+        public NativeAdViewPager.Builder setLegacyGDPR(boolean legacyGDPR) {
+            this.legacyGDPR = legacyGDPR;
             return this;
         }
 
@@ -142,7 +148,7 @@ public class NativeAdViewPager {
                                         }
                                     })
                                     .build();
-                            adLoader.loadAd(Tools.getAdRequest());
+                            adLoader.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                         } else {
                             Log.d(TAG, "AdMob Native Ad has been loaded");
                             progress_bar_ad.setVisibility(View.GONE);

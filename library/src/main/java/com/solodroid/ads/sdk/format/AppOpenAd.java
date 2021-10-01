@@ -41,7 +41,6 @@ public class AppOpenAd extends com.google.android.gms.ads.appopen.AppOpenAd.AppO
     private final long adExpiryDuration;
     private final AdRequest adRequest;
     private Activity mostCurrentActivity;
-    private com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback loadCallback;
     private com.google.android.gms.ads.appopen.AppOpenAd ad;
     private boolean isShowingAd = false;
     private long lastAdFetchTime = 0L;

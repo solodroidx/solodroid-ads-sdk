@@ -52,6 +52,7 @@ public class BannerAd {
         private String mopubBannerId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
+        private boolean legacyGDPR = false;
 
         public Builder(Activity activity) {
             this.activity = activity;
@@ -102,6 +103,11 @@ public class BannerAd {
             return this;
         }
 
+        public BannerAd.Builder setLegacyGDPR(boolean legacyGDPR) {
+            this.legacyGDPR = legacyGDPR;
+            return this;
+        }
+
         public void loadBannerAd() {
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (adNetwork) {
@@ -113,7 +119,7 @@ public class BannerAd {
                             adContainerView.removeAllViews();
                             adContainerView.addView(adView);
                             adView.setAdSize(Tools.getAdSize(activity));
-                            adView.loadAd(Tools.getAdRequest());
+                            adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                             adView.setAdListener(new AdListener() {
                                 @Override
                                 public void onAdLoaded() {
