@@ -95,12 +95,14 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                         mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
                                         admob_native_ad.setNativeAd(NativeAd);
                                         admob_native_ad.setVisibility(View.VISIBLE);
+                                        native_ad_view_container.setVisibility(View.VISIBLE);
                                         setNativeAdPadding(padding);
                                     })
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                                             admob_native_ad.setVisibility(View.GONE);
+                                            native_ad_view_container.setVisibility(View.GONE);
                                         }
                                     })
                                     .build();
@@ -123,6 +125,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     Log.d("STARTAPP_ADS", "ad loaded");
                                     setNativeAdPadding(padding);
                                     startapp_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
                                     //noinspection rawtypes
                                     ArrayList ads = startAppNativeAd.getNativeAds(); // get NativeAds list
 
@@ -151,6 +154,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                 @Override
                                 public void onFailedToReceiveAd(Ad arg0) {
                                     startapp_native_ad.setVisibility(View.GONE);
+                                    native_ad_view_container.setVisibility(View.GONE);
                                     Log.d("STARTAPP_ADS", "ad failed");
                                 }
                             };

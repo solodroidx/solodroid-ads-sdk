@@ -40,6 +40,7 @@ public class NativeAd {
 
         private static final String TAG = "AdNetwork";
         private final Activity activity;
+        LinearLayout native_ad_view_container;
 
         MediaView mediaView;
         TemplateView admob_native_ad;
@@ -64,6 +65,11 @@ public class NativeAd {
 
         public NativeAd.Builder build() {
             loadNativeAd();
+            return this;
+        }
+
+        public NativeAd.Builder setPadding(int left, int top, int right, int bottom) {
+            setNativeAdPadding(left, top, right, bottom);
             return this;
         }
 
@@ -101,6 +107,7 @@ public class NativeAd {
 
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
 
+                native_ad_view_container = activity.findViewById(R.id.native_ad_view_container);
                 admob_native_ad = activity.findViewById(R.id.admob_native_ad_container);
                 mediaView = activity.findViewById(R.id.media_view);
                 admob_native_background = activity.findViewById(R.id.background);
@@ -131,11 +138,13 @@ public class NativeAd {
                                         mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
                                         admob_native_ad.setNativeAd(NativeAd);
                                         admob_native_ad.setVisibility(View.VISIBLE);
+                                        native_ad_view_container.setVisibility(View.VISIBLE);
                                     })
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                                             admob_native_ad.setVisibility(View.GONE);
+                                            native_ad_view_container.setVisibility(View.GONE);
                                         }
                                     })
                                     .build();
@@ -157,6 +166,7 @@ public class NativeAd {
                                 public void onReceiveAd(com.startapp.sdk.adsbase.Ad arg0) {
                                     Log.d(TAG, "StartApp Native Ad loaded");
                                     startapp_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
                                     //noinspection rawtypes
                                     ArrayList ads = startAppNativeAd.getNativeAds(); // get NativeAds list
 
@@ -185,6 +195,7 @@ public class NativeAd {
                                 @Override
                                 public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad arg0) {
                                     startapp_native_ad.setVisibility(View.GONE);
+                                    native_ad_view_container.setVisibility(View.GONE);
                                     Log.d(TAG, "StartApp Native Ad failed loaded");
                                 }
                             };
@@ -204,6 +215,11 @@ public class NativeAd {
 
             }
 
+        }
+
+        public void setNativeAdPadding(int left, int top, int right, int bottom) {
+            native_ad_view_container = activity.findViewById(R.id.native_ad_view_container);
+            native_ad_view_container.setPadding(left, top, right, bottom);
         }
 
     }

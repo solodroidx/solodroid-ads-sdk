@@ -55,7 +55,8 @@
             android:maxLines="1"
             android:text=""
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/startapp_native_description"

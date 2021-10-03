@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/native_ad_view_container"
+    android:id="@+id/parent_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <com.solodroid.ads.sdk.util.TemplateView
-        android:id="@+id/admob_native_ad_container"
+    <LinearLayout
+        android:id="@+id/native_ad_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:gnt_template_type="@layout/gnt_admob_medium_template_view" />
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <include
-        android:id="@+id/startapp_native_ad_container"
-        layout="@layout/gnt_startapp_medium_template_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        <com.solodroid.ads.sdk.util.TemplateView
+            android:id="@+id/admob_native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:gnt_template_type="@layout/gnt_admob_medium_template_view" />
 
-</LinearLayout>
+        <include
+            android:id="@+id/startapp_native_ad_container"
+            layout="@layout/gnt_startapp_medium_template_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</RelativeLayout>
