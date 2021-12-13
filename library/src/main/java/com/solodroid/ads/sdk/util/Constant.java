@@ -8,6 +8,7 @@ public class Constant {
     public static final String UNITY = "unity";
     public static final String APPLOVIN = "applovin";
     public static final String MOPUB = "mopub";
+    public static final String NONE = "none";
 
     //startapp native ad image parameters
     public static final int STARTAPP_IMAGE_XSMALL = 1; //for image size 100px X 100px

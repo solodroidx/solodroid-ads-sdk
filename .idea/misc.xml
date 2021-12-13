@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/layout/activity_main.xml" value="0.3875" />
+        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_large_template_view.xml" value="0.3875" />
+        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_medium_template_view.xml" value="0.3875" />
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_banner_ad.xml" value="0.3875" />
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_large.xml" value="0.21927083333333333" />
+        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_medium.xml" value="0.3875" />
       </map>
     </option>
   </component>

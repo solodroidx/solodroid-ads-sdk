@@ -13,7 +13,8 @@ import com.solodroid.ads.sdk.format.NativeAd;
 public class MainActivity extends AppCompatActivity {
 
     public static final String AD_STATUS = "1";
-    public static final String AD_NETWORK = "admob";
+    public static final String AD_NETWORK = "unity";
+    public static final String BACKUP_AD_NETWORK = "admob";
 
     public static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
     public static final String ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
@@ -23,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String UNITY_GAME_ID = "4089993";
     public static final String UNITY_BANNER_ID = "banner";
-    public static final String UNITY_INTERSTITIAL_ID = "interstitial";
+    public static final String UNITY_INTERSTITIAL_ID = "video";
 
-    public static final String APPLOVIN_BANNER_ID = "f32d1355463ae430";
-    public static final String APPLOVIN_INTERSTITIAL_ID = "9665529a164fec6c";
+    public static final String APPLOVIN_BANNER_ID = "da17eff31ae69f15";
+    public static final String APPLOVIN_INTERSTITIAL_ID = "98f6a586ed642919";
+    public static final String APPLOVIN_NATIVE_ID = "f3f42da984bf7464";
 
     public static final String MOPUB_BANNER_ID = "b195f8dd8ded45fe847ad89ed1d016da";
     public static final String MOPUB_INTERSTITIAL_ID = "24534e1901884e398f1253216226017e";
@@ -48,17 +50,19 @@ public class MainActivity extends AppCompatActivity {
         adNetwork = new AdNetwork.Initialize(this)
                 .setAdStatus(AD_STATUS)
                 .setAdNetwork(AD_NETWORK)
+                .setBackupAdNetwork(BACKUP_AD_NETWORK)
                 .setAdMobAppId(null)
                 .setStartappAppId(STARTAPP_APP_ID)
                 .setUnityGameId(UNITY_GAME_ID)
-                .setAppLovinSdkKey(null)
+                .setAppLovinSdkKey(getResources().getString(R.string.applovin_sdk_key))
                 .setMopubBannerId(MOPUB_BANNER_ID)
-                .setDebug(true)
+                .setDebug(false)
                 .build();
 
         bannerAd = new BannerAd.Builder(this)
                 .setAdStatus(AD_STATUS)
                 .setAdNetwork(AD_NETWORK)
+                .setBackupAdNetwork(BACKUP_AD_NETWORK)
                 .setAdMobBannerId(ADMOB_BANNER_ID)
                 .setUnityBannerId(UNITY_BANNER_ID)
                 .setAppLovinBannerId(APPLOVIN_BANNER_ID)
@@ -69,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
         interstitialAd = new InterstitialAd.Builder(this)
                 .setAdStatus(AD_STATUS)
                 .setAdNetwork(AD_NETWORK)
+                .setBackupAdNetwork(BACKUP_AD_NETWORK)
                 .setAdMobInterstitialId(ADMOB_INTERSTITIAL_ID)
                 .setUnityInterstitialId(UNITY_INTERSTITIAL_ID)
                 .setAppLovinInterstitialId(APPLOVIN_INTERSTITIAL_ID)
                 .setMopubInterstitialId(MOPUB_INTERSTITIAL_ID)
-                .setInterval(1)
+                .setInterval(3)
                 .build();
 
         findViewById(R.id.btn_interstitial).setOnClickListener(v -> interstitialAd.show());
@@ -81,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
         nativeAd = new NativeAd.Builder(this)
                 .setAdStatus(AD_STATUS)
                 .setAdNetwork(AD_NETWORK)
+                .setBackupAdNetwork(BACKUP_AD_NETWORK)
                 .setAdMobNativeId(ADMOB_NATIVE_ID)
+                .setAppLovinNativeId(APPLOVIN_NATIVE_ID)
                 .setDarkTheme(false)
                 .build();
 

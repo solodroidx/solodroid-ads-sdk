@@ -2,6 +2,7 @@ package com.solodroid.ads.sdk.format;
 
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
+import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 
 import android.app.Activity;
@@ -73,10 +74,108 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String adMobNativeId, boolean darkTheme, int padding, boolean legacyGDPR) {
+    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String backupAdNetwork, String adMobNativeId, boolean darkTheme, int padding, boolean legacyGDPR) {
         if (adStatus.equals(AD_STATUS_ON)) {
             if (placementStatus != 0) {
                 switch (adNetwork) {
+                    case ADMOB:
+                        if (admob_native_ad.getVisibility() != View.VISIBLE) {
+                            AdLoader adLoader = new AdLoader.Builder(context, adMobNativeId)
+                                    .forNativeAd(NativeAd -> {
+                                        if (darkTheme) {
+                                            ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(context, R.color.colorBackgroundDark));
+                                            NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
+                                            admob_native_ad.setStyles(styles);
+                                            admob_native_background.setBackgroundResource(R.color.colorBackgroundDark);
+                                        } else {
+                                            ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(context, R.color.colorBackgroundLight));
+                                            NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
+                                            admob_native_ad.setStyles(styles);
+                                            admob_native_background.setBackgroundResource(R.color.colorBackgroundLight);
+                                        }
+                                        mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+                                        admob_native_ad.setNativeAd(NativeAd);
+                                        admob_native_ad.setVisibility(View.VISIBLE);
+                                        native_ad_view_container.setVisibility(View.VISIBLE);
+                                        setNativeAdPadding(padding);
+                                    })
+                                    .withAdListener(new AdListener() {
+                                        @Override
+                                        public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                            admob_native_ad.setVisibility(View.GONE);
+                                            native_ad_view_container.setVisibility(View.GONE);
+                                            loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, padding, legacyGDPR);
+                                        }
+                                    })
+                                    .build();
+                            adLoader.loadAd(Tools.getAdRequest((Activity) context, legacyGDPR));
+                        } else {
+                            Log.d("NATIVE_AD", "AdMob native ads has been loaded");
+                        }
+                        break;
+
+                    case STARTAPP:
+                        if (startapp_native_ad.getVisibility() != View.VISIBLE) {
+                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
+                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
+                                    .setAdsNumber(3)
+                                    .setAutoBitmapDownload(true)
+                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
+                            AdEventListener adListener = new AdEventListener() {
+                                @Override
+                                public void onReceiveAd(@NonNull Ad arg0) {
+                                    Log.d("STARTAPP_ADS", "ad loaded");
+                                    setNativeAdPadding(padding);
+                                    startapp_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
+                                    //noinspection rawtypes
+                                    ArrayList ads = startAppNativeAd.getNativeAds(); // get NativeAds list
+
+                                    // Print all ads details to log
+                                    for (Object ad : ads) {
+                                        Log.d("STARTAPP_ADS", ad.toString());
+                                    }
+
+                                    NativeAdDetails ad = (NativeAdDetails) ads.get(0);
+                                    if (ad != null) {
+                                        startapp_native_image.setImageBitmap(ad.getImageBitmap());
+                                        startapp_native_title.setText(ad.getTitle());
+                                        startapp_native_description.setText(ad.getDescription());
+                                        startapp_native_button.setText(ad.isApp() ? "Install" : "Open");
+                                        ad.registerViewForInteraction(itemView);
+                                    }
+
+                                    if (darkTheme) {
+                                        startapp_native_background.setBackgroundResource(R.color.colorBackgroundDark);
+                                    } else {
+                                        startapp_native_background.setBackgroundResource(R.color.colorBackgroundLight);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailedToReceiveAd(Ad arg0) {
+                                    startapp_native_ad.setVisibility(View.GONE);
+                                    native_ad_view_container.setVisibility(View.GONE);
+                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, padding, legacyGDPR);
+                                    Log.d("STARTAPP_ADS", "ad failed");
+                                }
+                            };
+                            startAppNativeAd.loadAd(nativePrefs, adListener);
+                        } else {
+                            Log.d("NATIVE_AD", "StartApp native ads has been loaded");
+                        }
+                        break;
+
+                }
+            }
+        }
+    }
+
+    public void loadBackupNativeAd(Context context, String adStatus, int placementStatus, String backupAdNetwork, String adMobNativeId, boolean darkTheme, int padding, boolean legacyGDPR) {
+        if (adStatus.equals(AD_STATUS_ON)) {
+            if (placementStatus != 0) {
+                switch (backupAdNetwork) {
                     case ADMOB:
                         if (admob_native_ad.getVisibility() != View.VISIBLE) {
                             AdLoader adLoader = new AdLoader.Builder(context, adMobNativeId)
@@ -121,7 +220,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
                             AdEventListener adListener = new AdEventListener() {
                                 @Override
-                                public void onReceiveAd(Ad arg0) {
+                                public void onReceiveAd(@NonNull Ad arg0) {
                                     Log.d("STARTAPP_ADS", "ad loaded");
                                     setNativeAdPadding(padding);
                                     startapp_native_ad.setVisibility(View.VISIBLE);
@@ -162,6 +261,10 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         } else {
                             Log.d("NATIVE_AD", "StartApp native ads has been loaded");
                         }
+                        break;
+
+                    case NONE:
+                        //do nothing
                         break;
 
                 }
