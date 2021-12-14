@@ -38,6 +38,7 @@ import java.util.ArrayList;
 
 public class NativeAdViewHolder extends RecyclerView.ViewHolder {
 
+    private static final String TAG = "AdNetwork";
     LinearLayout native_ad_view_container;
 
     //AdMob
@@ -74,7 +75,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String backupAdNetwork, String adMobNativeId, boolean darkTheme, int padding, boolean legacyGDPR) {
+    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String backupAdNetwork, String adMobNativeId, boolean darkTheme, boolean legacyGDPR) {
         if (adStatus.equals(AD_STATUS_ON)) {
             if (placementStatus != 0) {
                 switch (adNetwork) {
@@ -97,20 +98,19 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                         admob_native_ad.setNativeAd(NativeAd);
                                         admob_native_ad.setVisibility(View.VISIBLE);
                                         native_ad_view_container.setVisibility(View.VISIBLE);
-                                        setNativeAdPadding(padding);
                                     })
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                            admob_native_ad.setVisibility(View.GONE);
-                                            native_ad_view_container.setVisibility(View.GONE);
-                                            loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, padding, legacyGDPR);
+                                            //admob_native_ad.setVisibility(View.GONE);
+                                            //native_ad_view_container.setVisibility(View.GONE);
+                                            loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, legacyGDPR);
                                         }
                                     })
                                     .build();
                             adLoader.loadAd(Tools.getAdRequest((Activity) context, legacyGDPR));
                         } else {
-                            Log.d("NATIVE_AD", "AdMob native ads has been loaded");
+                            Log.d(TAG, "AdMob native ads has been loaded");
                         }
                         break;
 
@@ -125,7 +125,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                 @Override
                                 public void onReceiveAd(@NonNull Ad arg0) {
                                     Log.d("STARTAPP_ADS", "ad loaded");
-                                    setNativeAdPadding(padding);
                                     startapp_native_ad.setVisibility(View.VISIBLE);
                                     native_ad_view_container.setVisibility(View.VISIBLE);
                                     //noinspection rawtypes
@@ -155,15 +154,15 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
 
                                 @Override
                                 public void onFailedToReceiveAd(Ad arg0) {
-                                    startapp_native_ad.setVisibility(View.GONE);
-                                    native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, padding, legacyGDPR);
-                                    Log.d("STARTAPP_ADS", "ad failed");
+                                    //startapp_native_ad.setVisibility(View.GONE);
+                                    //native_ad_view_container.setVisibility(View.GONE);
+                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, legacyGDPR);
+                                    Log.d(TAG, "ad failed");
                                 }
                             };
                             startAppNativeAd.loadAd(nativePrefs, adListener);
                         } else {
-                            Log.d("NATIVE_AD", "StartApp native ads has been loaded");
+                            Log.d(TAG, "StartApp native ads has been loaded");
                         }
                         break;
 
@@ -172,7 +171,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void loadBackupNativeAd(Context context, String adStatus, int placementStatus, String backupAdNetwork, String adMobNativeId, boolean darkTheme, int padding, boolean legacyGDPR) {
+    public void loadBackupNativeAd(Context context, String adStatus, int placementStatus, String backupAdNetwork, String adMobNativeId, boolean darkTheme, boolean legacyGDPR) {
         if (adStatus.equals(AD_STATUS_ON)) {
             if (placementStatus != 0) {
                 switch (backupAdNetwork) {
@@ -195,7 +194,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                         admob_native_ad.setNativeAd(NativeAd);
                                         admob_native_ad.setVisibility(View.VISIBLE);
                                         native_ad_view_container.setVisibility(View.VISIBLE);
-                                        setNativeAdPadding(padding);
                                     })
                                     .withAdListener(new AdListener() {
                                         @Override
@@ -207,7 +205,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     .build();
                             adLoader.loadAd(Tools.getAdRequest((Activity) context, legacyGDPR));
                         } else {
-                            Log.d("NATIVE_AD", "AdMob native ads has been loaded");
+                            Log.d(TAG, "AdMob native ads has been loaded");
                         }
                         break;
 
@@ -222,7 +220,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                 @Override
                                 public void onReceiveAd(@NonNull Ad arg0) {
                                     Log.d("STARTAPP_ADS", "ad loaded");
-                                    setNativeAdPadding(padding);
                                     startapp_native_ad.setVisibility(View.VISIBLE);
                                     native_ad_view_container.setVisibility(View.VISIBLE);
                                     //noinspection rawtypes
@@ -254,17 +251,17 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                 public void onFailedToReceiveAd(Ad arg0) {
                                     startapp_native_ad.setVisibility(View.GONE);
                                     native_ad_view_container.setVisibility(View.GONE);
-                                    Log.d("STARTAPP_ADS", "ad failed");
+                                    Log.d(TAG, "ad failed");
                                 }
                             };
                             startAppNativeAd.loadAd(nativePrefs, adListener);
                         } else {
-                            Log.d("NATIVE_AD", "StartApp native ads has been loaded");
+                            Log.d(TAG, "StartApp native ads has been loaded");
                         }
                         break;
 
                     case NONE:
-                        //do nothing
+                        native_ad_view_container.setVisibility(View.GONE);
                         break;
 
                 }
@@ -272,8 +269,8 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void setNativeAdPadding(int padding) {
-        native_ad_view_container.setPadding(padding, padding, padding, padding);
+    public void setNativeAdPadding(int left, int top, int right, int bottom) {
+        native_ad_view_container.setPadding(left, top, right, bottom);
     }
 
 }

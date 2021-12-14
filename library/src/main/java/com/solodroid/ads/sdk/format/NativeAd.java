@@ -58,15 +58,12 @@ public class NativeAd {
         Button startapp_native_button;
         LinearLayout startapp_native_background;
 
-        private MaxNativeAdLoader nativeAdLoader;
-        private MaxAd nativeAd = null;
         FrameLayout applovin_native_ad;
 
         private String adStatus = "";
         private String adNetwork = "";
         private String backupAdNetwork = "";
         private String adMobNativeId = "";
-        private String appLovinNativeId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
         private boolean legacyGDPR = false;
@@ -102,11 +99,6 @@ public class NativeAd {
 
         public NativeAd.Builder setAdMobNativeId(String adMobNativeId) {
             this.adMobNativeId = adMobNativeId;
-            return this;
-        }
-
-        public NativeAd.Builder setAppLovinNativeId(String appLovinNativeId) {
-            this.appLovinNativeId = appLovinNativeId;
             return this;
         }
 
@@ -166,8 +158,6 @@ public class NativeAd {
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                            admob_native_ad.setVisibility(View.GONE);
-                                            native_ad_view_container.setVisibility(View.GONE);
                                             loadBackupNativeAd();
                                         }
                                     })
@@ -218,8 +208,6 @@ public class NativeAd {
 
                                 @Override
                                 public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad arg0) {
-                                    startapp_native_ad.setVisibility(View.GONE);
-                                    native_ad_view_container.setVisibility(View.GONE);
                                     loadBackupNativeAd();
                                     Log.d(TAG, "StartApp Native Ad failed loaded");
                                 }
@@ -231,43 +219,9 @@ public class NativeAd {
                         break;
 
                     case APPLOVIN:
-                        //loadBackupNativeAd();
-//                        nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);
-//                        nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
-//                            @Override
-//                            public void onNativeAdLoaded(final View nativeAdView, final MaxAd ad) {
-//                                // Cleanup any pre-existing native ad to prevent memory leaks.
-//                                if (nativeAd != null) {
-//                                    nativeAdLoader.destroy(nativeAd);
-//                                }
-//
-//                                // Save ad for cleanup.
-//                                nativeAd = ad;
-//
-//                                // Add ad view to view.
-//                                applovin_native_ad.removeAllViews();
-//                                applovin_native_ad.addView(nativeAdView);
-//                                applovin_native_ad.setVisibility(View.VISIBLE);
-//                                Log.d(TAG, "AppLovin Native Ad loaded");
-//                            }
-//
-//                            @Override
-//                            public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
-//                                // We recommend retrying with exponentially higher delays up to a maximum delay
-//                                Log.d(TAG, error.getCode() + " " + error.getMessage());
-//                            }
-//
-//                            @Override
-//                            public void onNativeAdClicked(final MaxAd ad) {
-//                                // Optional click callback
-//                            }
-//                        });
-//                        nativeAdLoader.loadAd();
-                        break;
 
                     case UNITY:
                         //do nothing
-                        //loadBackupNativeAd();
                         break;
                 }
 
@@ -379,43 +333,11 @@ public class NativeAd {
                         break;
 
                     case APPLOVIN:
-//                        nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);
-//                        nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
-//                            @Override
-//                            public void onNativeAdLoaded(final View nativeAdView, final MaxAd ad) {
-//                                // Cleanup any pre-existing native ad to prevent memory leaks.
-//                                if (nativeAd != null) {
-//                                    nativeAdLoader.destroy(nativeAd);
-//                                }
-//
-//                                // Save ad for cleanup.
-//                                nativeAd = ad;
-//
-//                                // Add ad view to view.
-//                                applovin_native_ad.removeAllViews();
-//                                applovin_native_ad.addView(nativeAdView);
-//                                applovin_native_ad.setVisibility(View.VISIBLE);
-//                                Log.d(TAG, "AppLovin Native Ad loaded");
-//                            }
-//
-//                            @Override
-//                            public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
-//                                // We recommend retrying with exponentially higher delays up to a maximum delay
-//                                Log.d(TAG, error.getCode() + " " + error.getMessage());
-//                            }
-//
-//                            @Override
-//                            public void onNativeAdClicked(final MaxAd ad) {
-//                                // Optional click callback
-//                            }
-//                        });
-//                        nativeAdLoader.loadAd();
-                        break;
 
                     case UNITY:
 
                     case NONE:
-                        //do nothing
+                        native_ad_view_container.setVisibility(View.GONE);
                         break;
                 }
 

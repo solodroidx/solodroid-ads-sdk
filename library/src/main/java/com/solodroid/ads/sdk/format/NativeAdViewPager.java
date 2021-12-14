@@ -150,8 +150,6 @@ public class NativeAdViewPager {
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                            admob_native_ad.setVisibility(View.GONE);
-                                            progress_bar_ad.setVisibility(View.GONE);
                                             loadBackupNativeAd();
                                         }
                                     })
@@ -203,8 +201,6 @@ public class NativeAdViewPager {
 
                                 @Override
                                 public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad arg0) {
-                                    startapp_native_ad.setVisibility(View.GONE);
-                                    progress_bar_ad.setVisibility(View.GONE);
                                     loadBackupNativeAd();
                                     Log.d(TAG, "StartApp Native Ad failed loaded");
                                 }

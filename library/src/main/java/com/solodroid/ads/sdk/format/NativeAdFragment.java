@@ -156,8 +156,6 @@ public class NativeAdFragment {
                                     .withAdListener(new AdListener() {
                                         @Override
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                            admob_native_ad.setVisibility(View.GONE);
-                                            native_ad_view_container.setVisibility(View.GONE);
                                             loadBackupNativeAd();
                                         }
                                     })
@@ -208,8 +206,6 @@ public class NativeAdFragment {
 
                                 @Override
                                 public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad arg0) {
-                                    startapp_native_ad.setVisibility(View.GONE);
-                                    native_ad_view_container.setVisibility(View.GONE);
                                     loadBackupNativeAd();
                                     Log.d(TAG, "StartApp Native Ad failed loaded");
                                 }
@@ -339,7 +335,7 @@ public class NativeAdFragment {
                     case APPLOVIN:
 
                     case NONE:
-                        //do nothing
+                        native_ad_view_container.setVisibility(View.GONE);
                         break;
 
                 }
