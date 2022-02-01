@@ -64,7 +64,7 @@ public class InterstitialAd {
             this.activity = activity;
         }
 
-        public InterstitialAd.Builder build() {
+        public Builder build() {
             loadInterstitialAd();
             return this;
         }
@@ -73,52 +73,52 @@ public class InterstitialAd {
             showInterstitialAd();
         }
 
-        public InterstitialAd.Builder setAdStatus(String adStatus) {
+        public Builder setAdStatus(String adStatus) {
             this.adStatus = adStatus;
             return this;
         }
 
-        public InterstitialAd.Builder setAdNetwork(String adNetwork) {
+        public Builder setAdNetwork(String adNetwork) {
             this.adNetwork = adNetwork;
             return this;
         }
 
-        public InterstitialAd.Builder setBackupAdNetwork(String backupAdNetwork) {
+        public Builder setBackupAdNetwork(String backupAdNetwork) {
             this.backupAdNetwork = backupAdNetwork;
             return this;
         }
 
-        public InterstitialAd.Builder setAdMobInterstitialId(String adMobInterstitialId) {
+        public Builder setAdMobInterstitialId(String adMobInterstitialId) {
             this.adMobInterstitialId = adMobInterstitialId;
             return this;
         }
 
-        public InterstitialAd.Builder setUnityInterstitialId(String unityInterstitialId) {
+        public Builder setUnityInterstitialId(String unityInterstitialId) {
             this.unityInterstitialId = unityInterstitialId;
             return this;
         }
 
-        public InterstitialAd.Builder setAppLovinInterstitialId(String appLovinInterstitialId) {
+        public Builder setAppLovinInterstitialId(String appLovinInterstitialId) {
             this.appLovinInterstitialId = appLovinInterstitialId;
             return this;
         }
 
-        public InterstitialAd.Builder setMopubInterstitialId(String mopubInterstitialId) {
+        public Builder setMopubInterstitialId(String mopubInterstitialId) {
             this.mopubInterstitialId = mopubInterstitialId;
             return this;
         }
 
-        public InterstitialAd.Builder setPlacementStatus(int placementStatus) {
+        public Builder setPlacementStatus(int placementStatus) {
             this.placementStatus = placementStatus;
             return this;
         }
 
-        public InterstitialAd.Builder setInterval(int interval) {
+        public Builder setInterval(int interval) {
             this.interval = interval;
             return this;
         }
 
-        public InterstitialAd.Builder setLegacyGDPR(boolean legacyGDPR) {
+        public Builder setLegacyGDPR(boolean legacyGDPR) {
             this.legacyGDPR = legacyGDPR;
             return this;
         }

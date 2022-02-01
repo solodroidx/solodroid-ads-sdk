@@ -15,6 +15,7 @@
     <color name="gnt_gray">#808080</color>
     <color name="gnt_outline">#E0E0E0</color>
     <color name="gnt_ad_yellow">#FBB828</color>
+    <color name="gnt_ad_grey">#939393</color>
     <color name="btn_ad_button">#1A2196F3</color>
 
 </resources>

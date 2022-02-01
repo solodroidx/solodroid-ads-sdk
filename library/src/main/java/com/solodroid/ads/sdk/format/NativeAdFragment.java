@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.nativeAds.MaxNativeAdListener;
+import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
+import com.applovin.mediation.nativeAds.MaxNativeAdView;
+import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.LoadAdError;
@@ -49,15 +56,21 @@ public class NativeAdFragment {
         LinearLayout admob_native_background;
         View startapp_native_ad;
         ImageView startapp_native_image;
+        ImageView startapp_native_icon;
         TextView startapp_native_title;
         TextView startapp_native_description;
         Button startapp_native_button;
         LinearLayout startapp_native_background;
 
+        FrameLayout applovin_native_ad;
+        MaxNativeAdLoader nativeAdLoader;
+        MaxAd nativeAd;
+
         private String adStatus = "";
         private String adNetwork = "";
         private String backupAdNetwork = "";
         private String adMobNativeId = "";
+        private String appLovinNativeId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
         private boolean legacyGDPR = false;
@@ -66,52 +79,57 @@ public class NativeAdFragment {
             this.activity = activity;
         }
 
-        public NativeAdFragment.Builder build() {
+        public Builder build() {
             loadNativeAd();
             return this;
         }
 
-        public NativeAdFragment.Builder setPadding(int left, int top, int right, int bottom) {
+        public Builder setPadding(int left, int top, int right, int bottom) {
             setNativeAdPadding(left, top, right, bottom);
             return this;
         }
 
-        public NativeAdFragment.Builder setView(View view) {
+        public Builder setView(View view) {
             this.view = view;
             return this;
         }
 
-        public NativeAdFragment.Builder setAdStatus(String adStatus) {
+        public Builder setAdStatus(String adStatus) {
             this.adStatus = adStatus;
             return this;
         }
 
-        public NativeAdFragment.Builder setAdNetwork(String adNetwork) {
+        public Builder setAdNetwork(String adNetwork) {
             this.adNetwork = adNetwork;
             return this;
         }
 
-        public NativeAdFragment.Builder setBackupAdNetwork(String backupAdNetwork) {
+        public Builder setBackupAdNetwork(String backupAdNetwork) {
             this.backupAdNetwork = backupAdNetwork;
             return this;
         }
 
-        public NativeAdFragment.Builder setAdMobNativeId(String adMobNativeId) {
+        public Builder setAdMobNativeId(String adMobNativeId) {
             this.adMobNativeId = adMobNativeId;
             return this;
         }
 
-        public NativeAdFragment.Builder setPlacementStatus(int placementStatus) {
+        public Builder setAppLovinNativeId(String appLovinNativeId) {
+            this.appLovinNativeId = appLovinNativeId;
+            return this;
+        }
+
+        public Builder setPlacementStatus(int placementStatus) {
             this.placementStatus = placementStatus;
             return this;
         }
 
-        public NativeAdFragment.Builder setDarkTheme(boolean darkTheme) {
+        public Builder setDarkTheme(boolean darkTheme) {
             this.darkTheme = darkTheme;
             return this;
         }
 
-        public NativeAdFragment.Builder setLegacyGDPR(boolean legacyGDPR) {
+        public Builder setLegacyGDPR(boolean legacyGDPR) {
             this.legacyGDPR = legacyGDPR;
             return this;
         }
@@ -126,11 +144,13 @@ public class NativeAdFragment {
                 admob_native_background = view.findViewById(R.id.background);
                 startapp_native_ad = view.findViewById(R.id.startapp_native_ad_container);
                 startapp_native_image = view.findViewById(R.id.startapp_native_image);
+                startapp_native_icon = view.findViewById(R.id.startapp_native_icon);
                 startapp_native_title = view.findViewById(R.id.startapp_native_title);
                 startapp_native_description = view.findViewById(R.id.startapp_native_description);
                 startapp_native_button = view.findViewById(R.id.startapp_native_button);
                 startapp_native_button.setOnClickListener(v -> startapp_native_ad.performClick());
                 startapp_native_background = view.findViewById(R.id.startapp_native_background);
+                applovin_native_ad = view.findViewById(R.id.applovin_native_ad_container);
 
                 switch (adNetwork) {
                     case ADMOB:
@@ -190,6 +210,7 @@ public class NativeAdFragment {
                                     NativeAdDetails ad = (NativeAdDetails) ads.get(0);
                                     if (ad != null) {
                                         startapp_native_image.setImageBitmap(ad.getImageBitmap());
+                                        startapp_native_icon.setImageBitmap(ad.getSecondaryImageBitmap());
                                         startapp_native_title.setText(ad.getTitle());
                                         startapp_native_description.setText(ad.getDescription());
                                         startapp_native_button.setText(ad.isApp() ? "Install" : "Open");
@@ -216,9 +237,45 @@ public class NativeAdFragment {
                         }
                         break;
 
-                    case UNITY:
-
                     case APPLOVIN:
+                        if (applovin_native_ad.getVisibility() != View.VISIBLE) {
+                            nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);
+                            nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
+                                @Override
+                                public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
+                                    // Clean up any pre-existing native ad to prevent memory leaks.
+                                    if (nativeAd != null) {
+                                        nativeAdLoader.destroy(nativeAd);
+                                    }
+
+                                    // Save ad for cleanup.
+                                    nativeAd = ad;
+
+                                    // Add ad view to view.
+                                    applovin_native_ad.removeAllViews();
+                                    applovin_native_ad.addView(nativeAdView);
+                                    applovin_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
+                                    // We recommend retrying with exponentially higher delays up to a maximum delay
+                                    loadBackupNativeAd();
+                                }
+
+                                @Override
+                                public void onNativeAdClicked(final MaxAd ad) {
+                                    // Optional click callback
+                                }
+                            });
+                            nativeAdLoader.loadAd(createNativeAdView());
+                        } else {
+                            Log.d(TAG, "AppLovin Native Ad has been loaded");
+                        }
+                        break;
+
+                    case UNITY:
                         //do nothing
                         break;
 
@@ -243,6 +300,7 @@ public class NativeAdFragment {
                 startapp_native_button = view.findViewById(R.id.startapp_native_button);
                 startapp_native_button.setOnClickListener(v -> startapp_native_ad.performClick());
                 startapp_native_background = view.findViewById(R.id.startapp_native_background);
+                applovin_native_ad = view.findViewById(R.id.applovin_native_ad_container);
 
                 switch (backupAdNetwork) {
                     case ADMOB:
@@ -330,9 +388,44 @@ public class NativeAdFragment {
                         }
                         break;
 
-                    case UNITY:
-
                     case APPLOVIN:
+                        if (applovin_native_ad.getVisibility() != View.VISIBLE) {
+                            nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);
+                            nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
+                                @Override
+                                public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
+                                    // Clean up any pre-existing native ad to prevent memory leaks.
+                                    if (nativeAd != null) {
+                                        nativeAdLoader.destroy(nativeAd);
+                                    }
+
+                                    // Save ad for cleanup.
+                                    nativeAd = ad;
+
+                                    // Add ad view to view.
+                                    applovin_native_ad.removeAllViews();
+                                    applovin_native_ad.addView(nativeAdView);
+                                    applovin_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
+                                    // We recommend retrying with exponentially higher delays up to a maximum delay
+                                }
+
+                                @Override
+                                public void onNativeAdClicked(final MaxAd ad) {
+                                    // Optional click callback
+                                }
+                            });
+                            nativeAdLoader.loadAd(createNativeAdView());
+                        } else {
+                            Log.d(TAG, "AppLovin Native Ad has been loaded");
+                        }
+                        break;
+
+                    case UNITY:
 
                     case NONE:
                         native_ad_view_container.setVisibility(View.GONE);
@@ -347,6 +440,19 @@ public class NativeAdFragment {
         public void setNativeAdPadding(int left, int top, int right, int bottom) {
             native_ad_view_container = view.findViewById(R.id.native_ad_view_container);
             native_ad_view_container.setPadding(left, top, right, bottom);
+        }
+
+        public MaxNativeAdView createNativeAdView() {
+            MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_medium_template_view)
+                    .setTitleTextViewId(R.id.title_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
+                    .setAdvertiserTextViewId(R.id.advertiser_textView)
+                    .setIconImageViewId(R.id.icon_image_view)
+                    .setMediaContentViewGroupId(R.id.media_view_container)
+                    .setOptionsContentViewGroupId(R.id.ad_options_view)
+                    .setCallToActionButtonId(R.id.cta_button)
+                    .build();
+            return new MaxNativeAdView(binder, activity);
         }
 
     }

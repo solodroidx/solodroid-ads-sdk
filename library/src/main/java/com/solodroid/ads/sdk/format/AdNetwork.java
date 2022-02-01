@@ -25,7 +25,6 @@ import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.UnityAds;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,53 +48,53 @@ public class AdNetwork {
             this.activity = activity;
         }
 
-        public AdNetwork.Initialize build() {
+        public Initialize build() {
             initAds();
             initBackupAds();
             return this;
         }
 
-        public AdNetwork.Initialize setAdStatus(String adStatus) {
+        public Initialize setAdStatus(String adStatus) {
             this.adStatus = adStatus;
             return this;
         }
 
-        public AdNetwork.Initialize setAdNetwork(String adNetwork) {
+        public Initialize setAdNetwork(String adNetwork) {
             this.adNetwork = adNetwork;
             return this;
         }
 
-        public AdNetwork.Initialize setBackupAdNetwork(String backupAdNetwork) {
+        public Initialize setBackupAdNetwork(String backupAdNetwork) {
             this.backupAdNetwork = backupAdNetwork;
             return this;
         }
 
-        public AdNetwork.Initialize setAdMobAppId(String adMobAppId) {
+        public Initialize setAdMobAppId(String adMobAppId) {
             this.adMobAppId = adMobAppId;
             return this;
         }
 
-        public AdNetwork.Initialize setStartappAppId(String startappAppId) {
+        public Initialize setStartappAppId(String startappAppId) {
             this.startappAppId = startappAppId;
             return this;
         }
 
-        public AdNetwork.Initialize setUnityGameId(String unityGameId) {
+        public Initialize setUnityGameId(String unityGameId) {
             this.unityGameId = unityGameId;
             return this;
         }
 
-        public AdNetwork.Initialize setAppLovinSdkKey(String appLovinSdkKey) {
+        public Initialize setAppLovinSdkKey(String appLovinSdkKey) {
             this.appLovinSdkKey = appLovinSdkKey;
             return this;
         }
 
-        public AdNetwork.Initialize setMopubBannerId(String mopubBannerId) {
+        public Initialize setMopubBannerId(String mopubBannerId) {
             this.mopubBannerId = mopubBannerId;
             return this;
         }
 
-        public AdNetwork.Initialize setDebug(boolean debug) {
+        public Initialize setDebug(boolean debug) {
             this.debug = debug;
             return this;
         }
@@ -139,9 +138,10 @@ public class AdNetwork {
                         });
                         AudienceNetworkInitializeHelper.initialize(activity);
                         final String sdkKey = AppLovinSdk.getInstance(activity).getSdkKey();
-                        if (!sdkKey.equals(appLovinSdkKey)) {
-                            Log.e(TAG, "ERROR : Please update your applovin sdk key in the manifest file.");
-                        }
+                        Log.e(TAG, sdkKey);
+//                        if (!sdkKey.equals(appLovinSdkKey)) {
+//                            Log.e(TAG, "ERROR : Please update your applovin sdk key in the manifest file.");
+//                        }
                         break;
 
                     case MOPUB:

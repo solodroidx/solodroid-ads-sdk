@@ -60,57 +60,57 @@ public class BannerAd {
             this.activity = activity;
         }
 
-        public BannerAd.Builder build() {
+        public Builder build() {
             loadBannerAd();
             return this;
         }
 
-        public BannerAd.Builder setAdStatus(String adStatus) {
+        public Builder setAdStatus(String adStatus) {
             this.adStatus = adStatus;
             return this;
         }
 
-        public BannerAd.Builder setAdNetwork(String adNetwork) {
+        public Builder setAdNetwork(String adNetwork) {
             this.adNetwork = adNetwork;
             return this;
         }
 
-        public BannerAd.Builder setBackupAdNetwork(String backupAdNetwork) {
+        public Builder setBackupAdNetwork(String backupAdNetwork) {
             this.backupAdNetwork = backupAdNetwork;
             return this;
         }
 
-        public BannerAd.Builder setAdMobBannerId(String adMobBannerId) {
+        public Builder setAdMobBannerId(String adMobBannerId) {
             this.adMobBannerId = adMobBannerId;
             return this;
         }
 
-        public BannerAd.Builder setUnityBannerId(String unityBannerId) {
+        public Builder setUnityBannerId(String unityBannerId) {
             this.unityBannerId = unityBannerId;
             return this;
         }
 
-        public BannerAd.Builder setAppLovinBannerId(String appLovinBannerId) {
+        public Builder setAppLovinBannerId(String appLovinBannerId) {
             this.appLovinBannerId = appLovinBannerId;
             return this;
         }
 
-        public BannerAd.Builder setMopubBannerId(String mopubBannerId) {
+        public Builder setMopubBannerId(String mopubBannerId) {
             this.mopubBannerId = mopubBannerId;
             return this;
         }
 
-        public BannerAd.Builder setPlacementStatus(int placementStatus) {
+        public Builder setPlacementStatus(int placementStatus) {
             this.placementStatus = placementStatus;
             return this;
         }
 
-        public BannerAd.Builder setDarkTheme(boolean darkTheme) {
+        public Builder setDarkTheme(boolean darkTheme) {
             this.darkTheme = darkTheme;
             return this;
         }
 
-        public BannerAd.Builder setLegacyGDPR(boolean legacyGDPR) {
+        public Builder setLegacyGDPR(boolean legacyGDPR) {
             this.legacyGDPR = legacyGDPR;
             return this;
         }

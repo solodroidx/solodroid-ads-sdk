@@ -10,8 +10,8 @@
     <dimen name="gnt_default_margin">10dp</dimen>
     <dimen name="gnt_text_size_small">12sp</dimen>
     <dimen name="gnt_text_size_large">15sp</dimen>
-    <dimen name="gnt_ad_indicator_width">25dp</dimen>
-    <dimen name="gnt_ad_indicator_height">20dp</dimen>
+    <dimen name="gnt_ad_indicator_width">24dp</dimen>
+    <dimen name="gnt_ad_indicator_height">19dp</dimen>
     <dimen name="gnt_ad_indicator_bar_height">30dp</dimen>
     <dimen name="gnt_ad_indicator_top_margin">0dp</dimen>
     <dimen name="gnt_ad_indicator_bottom_margin">10dp</dimen>
@@ -20,5 +20,12 @@
     <dimen name="gnt_medium_cta_button_height">50dp</dimen>
     <dimen name="gnt_no_margin">0dp</dimen>
     <dimen name="gnt_no_size">0dp</dimen>
+
+    <dimen name="item_post_padding_medium">14dp</dimen>
+    <dimen name="item_post_padding_small">7dp</dimen>
+    <dimen name="post_thumbnail_width">108dp</dimen>
+    <dimen name="post_thumbnail_height">108dp</dimen>
+    <dimen name="post_primary_font_size">16sp</dimen>
+    <dimen name="post_secondary_font_size">12sp</dimen>
 
 </resources>

@@ -25,14 +25,22 @@
             android:value="@string/applovin_sdk_key" />
 
         <activity
-            android:name="com.solodroid.ads.sdkdemo.MainActivity"
-            android:exported="true">
+            android:name=".ActivitySplash"
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.solodroid.ads.sdkdemo.MainActivity"
+            android:exported="true" />
+
+        <activity android:name="com.solodroid.ads.sdkdemo.SecondActivity" />
+
     </application>
 
 </manifest>

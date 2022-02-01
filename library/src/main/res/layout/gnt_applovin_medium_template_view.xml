@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/startapp_unit"
+    android:id="@+id/applovin_unit"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/startapp_native_background"
+        android:id="@+id/applovin_native_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -32,7 +31,7 @@
                     android:background="@drawable/gnt_ad_icon"
                     android:gravity="center"
                     android:paddingTop="2dp"
-                    android:text="@string/txt_ad"
+                    android:text="Ad"
                     android:textSize="@dimen/gnt_ad_indicator_text_size"
                     android:textStyle="bold" />
 
@@ -45,7 +44,7 @@
                     android:ellipsize="end"
                     android:gravity="start"
                     android:maxLines="1"
-                    android:text="@string/txt_advertiser" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -55,8 +54,7 @@
                 android:layout_height="18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:visibility="gone" />
+                android:orientation="vertical" />
 
         </RelativeLayout>
 
@@ -68,7 +66,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintDimensionRatio="H,2:1.2"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -79,11 +77,10 @@
                     card_view:cardCornerRadius="@dimen/corner_radius"
                     card_view:cardElevation="0dp">
 
-                    <ImageView
-                        android:id="@+id/startapp_native_image"
+                    <FrameLayout
+                        android:id="@+id/media_view_container"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />
+                        android:layout_height="match_parent" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -105,7 +102,7 @@
                 card_view:cardElevation="0dp">
 
                 <ImageView
-                    android:id="@+id/startapp_native_icon"
+                    android:id="@+id/icon_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop" />
@@ -119,7 +116,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/startapp_native_title"
+                    android:id="@+id/title_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -132,7 +129,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/startapp_native_description"
+                    android:id="@+id/body_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -159,7 +156,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/startapp_native_button"
+        android:id="@+id/cta_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"

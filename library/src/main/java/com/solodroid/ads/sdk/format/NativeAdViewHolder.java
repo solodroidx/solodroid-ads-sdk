@@ -2,6 +2,7 @@ package com.solodroid.ads.sdk.format;
 
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 
@@ -11,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.nativeAds.MaxNativeAdListener;
+import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
+import com.applovin.mediation.nativeAds.MaxNativeAdView;
+import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.LoadAdError;
@@ -49,10 +57,16 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
     //StartApp
     View startapp_native_ad;
     ImageView startapp_native_image;
+    ImageView startapp_native_icon;
     TextView startapp_native_title;
     TextView startapp_native_description;
     Button startapp_native_button;
     LinearLayout startapp_native_background;
+
+    //AppLovin
+    FrameLayout applovin_native_ad;
+    MaxNativeAdLoader nativeAdLoader;
+    MaxAd nativeAd;
 
     public NativeAdViewHolder(View v) {
         super(v);
@@ -67,15 +81,19 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
         //StartApp
         startapp_native_ad = v.findViewById(R.id.startapp_native_ad_container);
         startapp_native_image = v.findViewById(R.id.startapp_native_image);
+        startapp_native_icon = v.findViewById(R.id.startapp_native_icon);
         startapp_native_title = v.findViewById(R.id.startapp_native_title);
         startapp_native_description = v.findViewById(R.id.startapp_native_description);
         startapp_native_button = v.findViewById(R.id.startapp_native_button);
         startapp_native_button.setOnClickListener(v1 -> itemView.performClick());
         startapp_native_background = v.findViewById(R.id.startapp_native_background);
 
+        //AppLovin
+        applovin_native_ad = v.findViewById(R.id.applovin_native_ad_container);
+
     }
 
-    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String backupAdNetwork, String adMobNativeId, boolean darkTheme, boolean legacyGDPR) {
+    public void loadNativeAd(Context context, String adStatus, int placementStatus, String adNetwork, String backupAdNetwork, String adMobNativeId, String appLovinNativeId, boolean darkTheme, boolean legacyGDPR, String nativeStyles) {
         if (adStatus.equals(AD_STATUS_ON)) {
             if (placementStatus != 0) {
                 switch (adNetwork) {
@@ -104,7 +122,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                                             //admob_native_ad.setVisibility(View.GONE);
                                             //native_ad_view_container.setVisibility(View.GONE);
-                                            loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, legacyGDPR);
+                                            loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeStyles);
                                         }
                                     })
                                     .build();
@@ -138,6 +156,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     NativeAdDetails ad = (NativeAdDetails) ads.get(0);
                                     if (ad != null) {
                                         startapp_native_image.setImageBitmap(ad.getImageBitmap());
+                                        startapp_native_icon.setImageBitmap(ad.getSecondaryImageBitmap());
                                         startapp_native_title.setText(ad.getTitle());
                                         startapp_native_description.setText(ad.getDescription());
                                         startapp_native_button.setText(ad.isApp() ? "Install" : "Open");
@@ -156,7 +175,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                 public void onFailedToReceiveAd(Ad arg0) {
                                     //startapp_native_ad.setVisibility(View.GONE);
                                     //native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, darkTheme, legacyGDPR);
+                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeStyles);
                                     Log.d(TAG, "ad failed");
                                 }
                             };
@@ -166,12 +185,50 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         }
                         break;
 
+                    case APPLOVIN:
+                        if (applovin_native_ad.getVisibility() != View.VISIBLE) {
+                            nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, context);
+                            nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
+                                @Override
+                                public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
+                                    // Clean up any pre-existing native ad to prevent memory leaks.
+                                    if (nativeAd != null) {
+                                        nativeAdLoader.destroy(nativeAd);
+                                    }
+
+                                    // Save ad for cleanup.
+                                    nativeAd = ad;
+
+                                    // Add ad view to view.
+                                    applovin_native_ad.removeAllViews();
+                                    applovin_native_ad.addView(nativeAdView);
+                                    applovin_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
+                                    // We recommend retrying with exponentially higher delays up to a maximum delay
+                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeStyles);
+                                }
+
+                                @Override
+                                public void onNativeAdClicked(final MaxAd ad) {
+                                    // Optional click callback
+                                }
+                            });
+                            nativeAdLoader.loadAd(createNativeAdView(context, nativeStyles));
+                        } else {
+                            Log.d(TAG, "AppLovin Native ads has been loaded");
+                        }
+                        break;
+
                 }
             }
         }
     }
 
-    public void loadBackupNativeAd(Context context, String adStatus, int placementStatus, String backupAdNetwork, String adMobNativeId, boolean darkTheme, boolean legacyGDPR) {
+    public void loadBackupNativeAd(Context context, String adStatus, int placementStatus, String backupAdNetwork, String adMobNativeId, String appLovinNativeId, boolean darkTheme, boolean legacyGDPR, String nativeStyles) {
         if (adStatus.equals(AD_STATUS_ON)) {
             if (placementStatus != 0) {
                 switch (backupAdNetwork) {
@@ -233,6 +290,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     NativeAdDetails ad = (NativeAdDetails) ads.get(0);
                                     if (ad != null) {
                                         startapp_native_image.setImageBitmap(ad.getImageBitmap());
+                                        startapp_native_icon.setImageBitmap(ad.getSecondaryImageBitmap());
                                         startapp_native_title.setText(ad.getTitle());
                                         startapp_native_description.setText(ad.getDescription());
                                         startapp_native_button.setText(ad.isApp() ? "Install" : "Open");
@@ -260,6 +318,43 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         }
                         break;
 
+                    case APPLOVIN:
+                        if (applovin_native_ad.getVisibility() != View.VISIBLE) {
+                            nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, context);
+                            nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
+                                @Override
+                                public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
+                                    // Clean up any pre-existing native ad to prevent memory leaks.
+                                    if (nativeAd != null) {
+                                        nativeAdLoader.destroy(nativeAd);
+                                    }
+
+                                    // Save ad for cleanup.
+                                    nativeAd = ad;
+
+                                    // Add ad view to view.
+                                    applovin_native_ad.removeAllViews();
+                                    applovin_native_ad.addView(nativeAdView);
+                                    applovin_native_ad.setVisibility(View.VISIBLE);
+                                    native_ad_view_container.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
+                                    // We recommend retrying with exponentially higher delays up to a maximum delay
+                                }
+
+                                @Override
+                                public void onNativeAdClicked(final MaxAd ad) {
+                                    // Optional click callback
+                                }
+                            });
+                            nativeAdLoader.loadAd(createNativeAdView(context, nativeStyles));
+                        } else {
+                            Log.d(TAG, "AppLovin Native ads has been loaded");
+                        }
+                        break;
+
                     case NONE:
                         native_ad_view_container.setVisibility(View.GONE);
                         break;
@@ -271,6 +366,32 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
 
     public void setNativeAdPadding(int left, int top, int right, int bottom) {
         native_ad_view_container.setPadding(left, top, right, bottom);
+    }
+
+    public MaxNativeAdView createNativeAdView(Context context, String nativeStyles) {
+        MaxNativeAdViewBinder binder;
+        if (nativeStyles.equals("news")) {
+            binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_news_template_view)
+                    .setTitleTextViewId(R.id.title_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
+                    .setAdvertiserTextViewId(R.id.advertiser_textView)
+                    .setIconImageViewId(R.id.icon_image_view)
+                    .setMediaContentViewGroupId(R.id.media_view_container)
+                    .setOptionsContentViewGroupId(R.id.ad_options_view)
+                    .setCallToActionButtonId(R.id.cta_button)
+                    .build();
+        } else {
+            binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_medium_template_view)
+                    .setTitleTextViewId(R.id.title_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
+                    .setAdvertiserTextViewId(R.id.advertiser_textView)
+                    .setIconImageViewId(R.id.icon_image_view)
+                    .setMediaContentViewGroupId(R.id.media_view_container)
+                    .setOptionsContentViewGroupId(R.id.ad_options_view)
+                    .setCallToActionButtonId(R.id.cta_button)
+                    .build();
+        }
+        return new MaxNativeAdView(binder, (Activity) context);
     }
 
 }
