@@ -36,7 +36,7 @@ dependencies {
     //Ad network
     implementation 'com.google.android.gms:play-services-ads:20.5.0'
     implementation 'com.startapp:inapp-sdk:4.9.1'
-    implementation 'com.applovin:applovin-sdk:10.3.5'
+    implementation 'com.applovin:applovin-sdk:11.1.0'
     implementation 'com.facebook.android:audience-network-sdk:6.8.0'
     implementation 'com.unity3d.ads:unity-ads:4.0.0'
     implementation('com.mopub:mopub-sdk-banner:5.18.0@aar') {
