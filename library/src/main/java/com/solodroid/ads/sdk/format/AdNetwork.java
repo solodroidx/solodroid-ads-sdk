@@ -3,6 +3,8 @@ package com.solodroid.ads.sdk.format;
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
@@ -133,15 +135,15 @@ public class AdNetwork {
                         });
                         break;
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
                         AppLovinSdk.getInstance(activity).initializeSdk(config -> {
                         });
                         AudienceNetworkInitializeHelper.initialize(activity);
-                        final String sdkKey = AppLovinSdk.getInstance(activity).getSdkKey();
-                        Log.e(TAG, sdkKey);
-//                        if (!sdkKey.equals(appLovinSdkKey)) {
-//                            Log.e(TAG, "ERROR : Please update your applovin sdk key in the manifest file.");
-//                        }
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        AppLovinSdk.initializeSdk(activity);
                         break;
 
                     case MOPUB:
@@ -190,14 +192,15 @@ public class AdNetwork {
                         });
                         break;
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
                         AppLovinSdk.getInstance(activity).initializeSdk(config -> {
                         });
                         AudienceNetworkInitializeHelper.initialize(activity);
-                        final String sdkKey = AppLovinSdk.getInstance(activity).getSdkKey();
-                        if (!sdkKey.equals(appLovinSdkKey)) {
-                            Log.e(TAG, "ERROR : Please update your applovin sdk key in the manifest file.");
-                        }
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        AppLovinSdk.initializeSdk(activity);
                         break;
 
                     case MOPUB:

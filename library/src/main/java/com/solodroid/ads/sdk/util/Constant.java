@@ -7,6 +7,8 @@ public class Constant {
     public static final String STARTAPP = "startapp";
     public static final String UNITY = "unity";
     public static final String APPLOVIN = "applovin";
+    public static final String APPLOVIN_MAX = "applovin_max";
+    public static final String APPLOVIN_DISCOVERY = "applovin_discovery";
     public static final String MOPUB = "mopub";
     public static final String NONE = "none";
 

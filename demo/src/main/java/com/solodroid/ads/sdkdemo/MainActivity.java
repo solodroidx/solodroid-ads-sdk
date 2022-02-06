@@ -16,7 +16,7 @@ import com.solodroid.ads.sdk.format.NativeAd;
 public class MainActivity extends AppCompatActivity {
 
     public static final String AD_STATUS = "1";
-    public static final String AD_NETWORK = "admob";
+    public static final String AD_NETWORK = "applovin_discovery";
     public static final String BACKUP_AD_NETWORK = "none";
 
     public static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APPLOVIN_BANNER_ID = "da17eff31ae69f15";
     public static final String APPLOVIN_INTERSTITIAL_ID = "98f6a586ed642919";
     public static final String APPLOVIN_NATIVE_MANUAL_ID = "87343269587e8998";
+
+    public static final String APPLOVIN_BANNER_ZONE_ID = "afb7122672e86340";
+    public static final String APPLOVIN_INTERSTITIAL_ZONE_ID = "b6eba8b976279ea5";
 
     public static final String MOPUB_BANNER_ID = "b195f8dd8ded45fe847ad89ed1d016da";
     public static final String MOPUB_INTERSTITIAL_ID = "24534e1901884e398f1253216226017e";
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAdMobBannerId(ADMOB_BANNER_ID)
                 .setUnityBannerId(UNITY_BANNER_ID)
                 .setAppLovinBannerId(APPLOVIN_BANNER_ID)
+                .setAppLovinBannerZoneId(APPLOVIN_BANNER_ZONE_ID)
                 .setMopubBannerId(MOPUB_BANNER_ID)
                 .setDarkTheme(false)
                 .build();
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAdMobInterstitialId(ADMOB_INTERSTITIAL_ID)
                 .setUnityInterstitialId(UNITY_INTERSTITIAL_ID)
                 .setAppLovinInterstitialId(APPLOVIN_INTERSTITIAL_ID)
+                .setAppLovinInterstitialZoneId(APPLOVIN_INTERSTITIAL_ZONE_ID)
                 .setMopubInterstitialId(MOPUB_INTERSTITIAL_ID)
                 .setInterval(1)
                 .build();

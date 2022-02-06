@@ -32,6 +32,13 @@
         android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/applovin_discovery_banner_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <RelativeLayout
         android:id="@+id/mopub_banner_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

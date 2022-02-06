@@ -3,6 +3,8 @@ package com.solodroid.ads.sdk.format;
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
@@ -11,6 +13,7 @@ import static com.solodroid.ads.sdk.util.Constant.UNITY_ADS_BANNER_HEIGHT_MEDIUM
 import static com.solodroid.ads.sdk.util.Constant.UNITY_ADS_BANNER_WIDTH_MEDIUM;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +22,23 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
+import com.applovin.adview.AppLovinAdView;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinAd;
+import com.applovin.sdk.AppLovinAdLoadListener;
+import com.applovin.sdk.AppLovinAdSize;
+import com.applovin.sdk.AppLovinSdkUtils;
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubView;
 import com.solodroid.ads.sdk.R;
+import com.solodroid.ads.sdk.helper.AppLovinCustomEventBanner;
 import com.solodroid.ads.sdk.util.Tools;
 import com.startapp.sdk.ads.banner.Banner;
 import com.startapp.sdk.ads.banner.BannerListener;
@@ -44,6 +54,7 @@ public class BannerAd {
         private final Activity activity;
         private AdView adView;
         private MoPubView moPubView;
+        private AppLovinAdView appLovinAdView;
 
         private String adStatus = "";
         private String adNetwork = "";
@@ -51,6 +62,7 @@ public class BannerAd {
         private String adMobBannerId = "";
         private String unityBannerId = "";
         private String appLovinBannerId = "";
+        private String appLovinBannerZoneId = "";
         private String mopubBannerId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
@@ -92,6 +104,11 @@ public class BannerAd {
 
         public Builder setAppLovinBannerId(String appLovinBannerId) {
             this.appLovinBannerId = appLovinBannerId;
+            return this;
+        }
+
+        public Builder setAppLovinBannerZoneId(String appLovinBannerZoneId) {
+            this.appLovinBannerZoneId = appLovinBannerZoneId;
             return this;
         }
 
@@ -222,6 +239,7 @@ public class BannerAd {
                         break;
 
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         RelativeLayout appLovinAdView = activity.findViewById(R.id.applovin_banner_view_container);
                         MaxAdView maxAdView = new MaxAdView(appLovinBannerId, activity);
                         maxAdView.setListener(new MaxAdViewAdListener() {
@@ -278,6 +296,32 @@ public class BannerAd {
                         appLovinAdView.addView(maxAdView);
                         maxAdView.loadAd();
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + appLovinBannerId);
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        RelativeLayout appLovinDiscoveryAdView = activity.findViewById(R.id.applovin_discovery_banner_view_container);
+                        AdRequest.Builder builder = new AdRequest.Builder();
+                        Bundle bannerExtras = new Bundle();
+                        bannerExtras.putString("zone_id", appLovinBannerZoneId);
+                        builder.addCustomEventExtrasBundle(AppLovinCustomEventBanner.class, bannerExtras);
+
+                        boolean isTablet2 = AppLovinSdkUtils.isTablet(activity);
+                        AppLovinAdSize adSize = isTablet2 ? AppLovinAdSize.LEADER : AppLovinAdSize.BANNER;
+                        this.appLovinAdView = new AppLovinAdView(adSize, activity);
+                        this.appLovinAdView.setAdLoadListener(new AppLovinAdLoadListener() {
+                            @Override
+                            public void adReceived(AppLovinAd ad) {
+                                appLovinDiscoveryAdView.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void failedToReceiveAd(int errorCode) {
+                                appLovinDiscoveryAdView.setVisibility(View.GONE);
+                                loadBackupBannerAd();
+                            }
+                        });
+                        appLovinDiscoveryAdView.addView(this.appLovinAdView);
+                        this.appLovinAdView.loadNextAd();
                         break;
 
                     case MOPUB:
@@ -430,6 +474,7 @@ public class BannerAd {
                         break;
 
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         RelativeLayout appLovinAdView = activity.findViewById(R.id.applovin_banner_view_container);
                         MaxAdView maxAdView = new MaxAdView(appLovinBannerId, activity);
                         maxAdView.setListener(new MaxAdViewAdListener() {
@@ -485,6 +530,31 @@ public class BannerAd {
                         appLovinAdView.addView(maxAdView);
                         maxAdView.loadAd();
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + appLovinBannerId);
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        RelativeLayout appLovinDiscoveryAdView = activity.findViewById(R.id.applovin_discovery_banner_view_container);
+                        AdRequest.Builder builder = new AdRequest.Builder();
+                        Bundle bannerExtras = new Bundle();
+                        bannerExtras.putString("zone_id", appLovinBannerZoneId);
+                        builder.addCustomEventExtrasBundle(AppLovinCustomEventBanner.class, bannerExtras);
+
+                        boolean isTablet2 = AppLovinSdkUtils.isTablet(activity);
+                        AppLovinAdSize adSize = isTablet2 ? AppLovinAdSize.LEADER : AppLovinAdSize.BANNER;
+                        this.appLovinAdView = new AppLovinAdView(adSize, activity);
+                        this.appLovinAdView.setAdLoadListener(new AppLovinAdLoadListener() {
+                            @Override
+                            public void adReceived(AppLovinAd ad) {
+                                appLovinDiscoveryAdView.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void failedToReceiveAd(int errorCode) {
+                                appLovinDiscoveryAdView.setVisibility(View.GONE);
+                            }
+                        });
+                        appLovinDiscoveryAdView.addView(this.appLovinAdView);
+                        this.appLovinAdView.loadNextAd();
                         break;
 
                     case MOPUB:

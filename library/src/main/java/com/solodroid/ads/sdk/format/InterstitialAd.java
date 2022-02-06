@@ -3,27 +3,38 @@ package com.solodroid.ads.sdk.format;
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 import static com.solodroid.ads.sdk.util.Constant.UNITY;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.applovin.adview.AppLovinInterstitialAd;
+import com.applovin.adview.AppLovinInterstitialAdDialog;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxInterstitialAd;
+import com.applovin.sdk.AppLovinAd;
+import com.applovin.sdk.AppLovinAdLoadListener;
+import com.applovin.sdk.AppLovinAdSize;
+import com.applovin.sdk.AppLovinSdk;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
+import com.solodroid.ads.sdk.helper.AppLovinCustomEventInterstitial;
 import com.solodroid.ads.sdk.util.Tools;
 import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
@@ -45,6 +56,8 @@ public class InterstitialAd {
         private StartAppAd startAppAd;
         private MaxInterstitialAd maxInterstitialAd;
         public MoPubInterstitial mInterstitial;
+        public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
+        public AppLovinAd appLovinAd;
         private int retryAttempt;
         private int counter = 1;
 
@@ -54,6 +67,7 @@ public class InterstitialAd {
         private String adMobInterstitialId = "";
         private String unityInterstitialId = "";
         private String appLovinInterstitialId = "";
+        private String appLovinInterstitialZoneId = "";
         private String mopubInterstitialId = "";
         private int placementStatus = 1;
         private int interval = 3;
@@ -100,6 +114,11 @@ public class InterstitialAd {
 
         public Builder setAppLovinInterstitialId(String appLovinInterstitialId) {
             this.appLovinInterstitialId = appLovinInterstitialId;
+            return this;
+        }
+
+        public Builder setAppLovinInterstitialZoneId(String appLovinInterstitialZoneId) {
+            this.appLovinInterstitialZoneId = appLovinInterstitialZoneId;
             return this;
         }
 
@@ -193,6 +212,7 @@ public class InterstitialAd {
                         break;
 
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
                         maxInterstitialAd.setListener(new MaxAdListener() {
                             @Override
@@ -232,6 +252,25 @@ public class InterstitialAd {
 
                         // Load the first ad
                         maxInterstitialAd.loadAd();
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        AdRequest.Builder builder = new AdRequest.Builder();
+                        Bundle interstitialExtras = new Bundle();
+                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
+                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
+                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
+                            @Override
+                            public void adReceived(AppLovinAd ad) {
+                                appLovinAd = ad;
+                            }
+
+                            @Override
+                            public void failedToReceiveAd(int errorCode) {
+                                loadBackupInterstitialAd();
+                            }
+                        });
+                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
                         break;
 
                     case MOPUB:
@@ -337,6 +376,7 @@ public class InterstitialAd {
                         break;
 
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
                         maxInterstitialAd.setListener(new MaxAdListener() {
                             @Override
@@ -375,6 +415,24 @@ public class InterstitialAd {
 
                         // Load the first ad
                         maxInterstitialAd.loadAd();
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        AdRequest.Builder builder = new AdRequest.Builder();
+                        Bundle interstitialExtras = new Bundle();
+                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
+                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
+                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
+                            @Override
+                            public void adReceived(AppLovinAd ad) {
+                                appLovinAd = ad;
+                            }
+
+                            @Override
+                            public void failedToReceiveAd(int errorCode) {
+                            }
+                        });
+                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
                         break;
 
                     case MOPUB:
@@ -465,12 +523,19 @@ public class InterstitialAd {
                             break;
 
                         case APPLOVIN:
+                        case APPLOVIN_MAX:
                             if (maxInterstitialAd.isReady()) {
                                 Log.d(TAG, "ready : " + counter);
                                 maxInterstitialAd.showAd();
                                 Log.d(TAG, "show ad");
                             } else {
                                 showBackupInterstitialAd();
+                            }
+                            break;
+
+                        case APPLOVIN_DISCOVERY:
+                            if (appLovinInterstitialAdDialog != null) {
+                                appLovinInterstitialAdDialog.showAndRender(appLovinAd);
                             }
                             break;
 
@@ -533,9 +598,15 @@ public class InterstitialAd {
                         break;
 
                     case APPLOVIN:
+                    case APPLOVIN_MAX:
                         if (maxInterstitialAd.isReady()) {
                             maxInterstitialAd.showAd();
-                            counter = 1;
+                        }
+                        break;
+
+                    case APPLOVIN_DISCOVERY:
+                        if (appLovinInterstitialAdDialog != null) {
+                            appLovinInterstitialAdDialog.showAndRender(appLovinAd);
                         }
                         break;
 
