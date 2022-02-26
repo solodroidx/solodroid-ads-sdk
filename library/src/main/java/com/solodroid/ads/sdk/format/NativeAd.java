@@ -3,6 +3,7 @@ package com.solodroid.ads.sdk.format;
 import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
+import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 import static com.solodroid.ads.sdk.util.Constant.UNITY;
@@ -231,6 +232,7 @@ public class NativeAd {
                         }
                         break;
 
+                    case APPLOVIN_MAX:
                     case APPLOVIN:
                         if (applovin_native_ad.getVisibility() != View.VISIBLE) {
                             nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);
@@ -383,6 +385,7 @@ public class NativeAd {
                         }
                         break;
 
+                    case APPLOVIN_MAX:
                     case APPLOVIN:
                         if (applovin_native_ad.getVisibility() != View.VISIBLE) {
                             nativeAdLoader = new MaxNativeAdLoader(appLovinNativeId, activity);

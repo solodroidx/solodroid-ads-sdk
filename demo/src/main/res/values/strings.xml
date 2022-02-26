@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AdNetworkSDK</string>
+    <string name="btn_show_interstitial_ad">Show Interstitial Ad</string>
 </resources>

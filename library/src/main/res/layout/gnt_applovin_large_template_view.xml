@@ -32,7 +32,7 @@
                     android:background="@drawable/gnt_ad_icon"
                     android:gravity="center"
                     android:paddingTop="2dp"
-                    android:text="Ad"
+                    android:text="@string/txt_ad"
                     android:textSize="@dimen/gnt_ad_indicator_text_size"
                     android:textStyle="bold" />
 
@@ -106,6 +106,7 @@
                     android:id="@+id/icon_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/img_content_description"
                     android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>

@@ -82,6 +82,7 @@
                         android:id="@+id/startapp_native_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/img_content_description"
                         android:scaleType="centerCrop" />
 
                 </androidx.cardview.widget.CardView>
@@ -107,6 +108,7 @@
                     android:id="@+id/startapp_native_icon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/img_content_description"
                     android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
