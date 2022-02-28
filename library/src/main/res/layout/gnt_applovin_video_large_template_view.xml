@@ -13,78 +13,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@+id/ad_options_view"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/ad_notification_view"
-                    android:layout_width="@dimen/gnt_ad_indicator_width"
-                    android:layout_height="@dimen/gnt_ad_indicator_height"
-                    android:background="@drawable/gnt_ad_icon"
-                    android:fontFamily="@font/custom_font"
-                    android:gravity="center"
-                    android:paddingTop="2dp"
-                    android:text="@string/txt_ad"
-                    android:textSize="@dimen/gnt_ad_indicator_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/advertiser_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="1dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/custom_font"
-                    android:gravity="start"
-                    android:maxLines="1"
-                    android:text="" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ad_options_view"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical" />
-
-        </RelativeLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,2:1.2"
+                app:layout_constraintDimensionRatio="H,2:1.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.cardview.widget.CardView
+                <FrameLayout
+                    android:id="@+id/media_view_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    card_view:cardCornerRadius="@dimen/corner_radius"
-                    card_view:cardElevation="0dp">
-
-                    <FrameLayout
-                        android:id="@+id/media_view_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </androidx.cardview.widget.CardView>
+                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 
@@ -93,13 +37,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
+            android:layout_marginEnd="10dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                android:layout_marginTop="3dp"
                 card_view:cardCornerRadius="@dimen/corner_radius"
                 card_view:cardElevation="0dp">
 
@@ -127,9 +73,9 @@
                     android:fontFamily="@font/custom_font"
                     android:gravity="start"
                     android:maxLines="2"
-                    android:text=""
+                    android:text="AAA"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:textSize="@dimen/post_primary_font_size"
+                    android:textSize="@dimen/video_primary_font_size"
                     android:textStyle="bold" />
 
                 <TextView
@@ -140,7 +86,8 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/custom_font"
                     android:maxLines="2"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="@dimen/video_secondary_font_size" />
 
                 <RatingBar
                     android:id="@+id/rating_bar"
@@ -154,6 +101,55 @@
                     android:textSize="@dimen/gnt_text_size_small"
                     android:visibility="gone" />
 
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/ad_options_view"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/ad_notification_view"
+                            android:layout_width="@dimen/gnt_ad_indicator_width"
+                            android:layout_height="@dimen/gnt_ad_indicator_height"
+                            android:background="@drawable/gnt_ad_icon"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:text="@string/txt_ad"
+                            android:textSize="@dimen/gnt_ad_indicator_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/advertiser_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="1dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="start"
+                            android:maxLines="1"
+                            android:text="" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ad_options_view"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical" />
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -164,7 +160,10 @@
         android:id="@+id/cta_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="7dp"
         android:background="@drawable/gnt_ad_button"
         android:fontFamily="@font/custom_font"
         android:textColor="@color/gnt_white"

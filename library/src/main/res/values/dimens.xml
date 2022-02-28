@@ -28,4 +28,9 @@
     <dimen name="post_primary_font_size">16sp</dimen>
     <dimen name="post_secondary_font_size">12sp</dimen>
 
+    <dimen name="video_thumbnail_width">128dp</dimen>
+    <dimen name="video_thumbnail_height">96dp</dimen>
+    <dimen name="video_primary_font_size">16sp</dimen>
+    <dimen name="video_secondary_font_size">13sp</dimen>
+
 </resources>

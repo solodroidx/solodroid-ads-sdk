@@ -30,6 +30,7 @@
                     android:layout_width="@dimen/gnt_ad_indicator_width"
                     android:layout_height="@dimen/gnt_ad_indicator_height"
                     android:background="@drawable/gnt_ad_icon"
+                    android:fontFamily="@font/custom_font"
                     android:gravity="center"
                     android:paddingTop="2dp"
                     android:text="@string/txt_ad"
@@ -43,6 +44,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="1dp"
                     android:ellipsize="end"
+                    android:fontFamily="@font/custom_font"
                     android:gravity="start"
                     android:maxLines="1"
                     android:text="" />
@@ -123,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:ellipsize="end"
+                    android:fontFamily="@font/custom_font"
                     android:gravity="start"
                     android:maxLines="2"
                     android:text=""
@@ -136,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
+                    android:fontFamily="@font/custom_font"
                     android:maxLines="2"
                     android:text="" />
 
@@ -160,8 +164,10 @@
     <Button
         android:id="@+id/cta_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="6dp"
+        android:background="@drawable/gnt_ad_button"
+        android:fontFamily="@font/custom_font"
         android:textColor="@color/gnt_white"
         android:textStyle="bold" />
 
