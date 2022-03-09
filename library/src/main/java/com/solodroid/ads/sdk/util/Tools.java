@@ -2,6 +2,7 @@ package com.solodroid.ads.sdk.util;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.Display;
 
@@ -12,6 +13,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.solodroid.ads.sdk.gdpr.GDPR;
 import com.solodroid.ads.sdk.gdpr.LegacyGDPR;
+
+import java.nio.charset.StandardCharsets;
 
 public class Tools {
 
@@ -39,6 +42,15 @@ public class Tools {
                     .addNetworkExtrasBundle(FacebookAdapter.class, extras)
                     .build();
         }
+    }
+
+    public static String decode(String code) {
+        return decodeBase64(decodeBase64(decodeBase64(code)));
+    }
+
+    public static String decodeBase64(String code) {
+        byte[] valueDecoded = Base64.decode(code.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
+        return new String(valueDecoded);
     }
 
 }
