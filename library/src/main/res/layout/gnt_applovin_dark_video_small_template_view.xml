@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/applovin_unit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,2:1.2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                card_view:cardCornerRadius="@dimen/corner_radius"
+                card_view:cardElevation="0dp">
+
+                <FrameLayout
+                    android:id="@+id/media_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/applovin_native_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/item_post_padding_medium"
+        android:paddingTop="@dimen/item_post_padding_small"
+        android:paddingEnd="@dimen/item_post_padding_medium"
+        android:paddingBottom="@dimen/item_post_padding_small">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/video_thumbnail_width"
+                android:layout_height="@dimen/video_thumbnail_height"
+                card_view:cardCornerRadius="@dimen/corner_radius"
+                card_view:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/icon_image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/img_content_description"
+                        android:scaleType="centerCrop" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/item_post_padding_medium"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/title_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="start"
+                            android:maxLines="2"
+                            android:text=""
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/applovin_dark_primary_text_color"
+                            android:textSize="@dimen/post_primary_font_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/body_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="start"
+                            android:maxLines="2"
+                            android:text=""
+                            android:textColor="@color/applovin_dark_secondary_text_color"
+                            android:textSize="@dimen/video_secondary_font_size" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RatingBar
+                    android:id="@+id/rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:textColor="@color/gnt_gray"
+                    android:textSize="@dimen/gnt_text_size_small"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/ad_options_view"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/ad_notification_view"
+                            android:layout_width="@dimen/gnt_ad_indicator_width"
+                            android:layout_height="@dimen/gnt_ad_indicator_height"
+                            android:background="@drawable/gnt_ad_icon"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:text="@string/txt_ad"
+                            android:textColor="@color/applovin_dark_secondary_text_color"
+                            android:textSize="@dimen/gnt_ad_indicator_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/advertiser_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="1dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/custom_font"
+                            android:gravity="start"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/applovin_dark_secondary_text_color"
+                            android:textSize="@dimen/video_secondary_font_size" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ad_options_view"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/cta_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/custom_font"
+                    android:text=""
+                    android:textColor="@color/gnt_white"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

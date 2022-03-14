@@ -267,7 +267,11 @@ public class NativeAdViewPager {
                                     // Optional click callback
                                 }
                             });
-                            nativeAdLoader.loadAd(createNativeAdView());
+                            if (darkTheme) {
+                                nativeAdLoader.loadAd(createNativeAdViewDark());
+                            } else {
+                                nativeAdLoader.loadAd(createNativeAdView());
+                            }
                         } else {
                             Log.d(TAG, "AppLovin Native Ad has been loaded");
                             progress_bar_ad.setVisibility(View.GONE);
@@ -423,7 +427,11 @@ public class NativeAdViewPager {
                                     // Optional click callback
                                 }
                             });
-                            nativeAdLoader.loadAd(createNativeAdView());
+                            if (darkTheme) {
+                                nativeAdLoader.loadAd(createNativeAdViewDark());
+                            } else {
+                                nativeAdLoader.loadAd(createNativeAdView());
+                            }
                         } else {
                             Log.d(TAG, "AppLovin Native Ad has been loaded");
                             progress_bar_ad.setVisibility(View.GONE);
@@ -444,6 +452,19 @@ public class NativeAdViewPager {
 
         public MaxNativeAdView createNativeAdView() {
             MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_large_template_view)
+                    .setTitleTextViewId(R.id.title_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
+                    .setAdvertiserTextViewId(R.id.advertiser_textView)
+                    .setIconImageViewId(R.id.icon_image_view)
+                    .setMediaContentViewGroupId(R.id.media_view_container)
+                    .setOptionsContentViewGroupId(R.id.ad_options_view)
+                    .setCallToActionButtonId(R.id.cta_button)
+                    .build();
+            return new MaxNativeAdView(binder, activity);
+        }
+
+        public MaxNativeAdView createNativeAdViewDark() {
+            MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_large_template_view)
                     .setTitleTextViewId(R.id.title_text_view)
                     .setBodyTextViewId(R.id.body_text_view)
                     .setAdvertiserTextViewId(R.id.advertiser_textView)

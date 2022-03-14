@@ -18,5 +18,7 @@
     <color name="gnt_ad_grey">#939393</color>
     <color name="btn_ad_button">#1A2196F3</color>
     <color name="applovin_button_color">#4385F7</color>
+    <color name="applovin_dark_primary_text_color">#FFFFFF</color>
+    <color name="applovin_dark_secondary_text_color">#B8BCBE</color>
 
 </resources>
