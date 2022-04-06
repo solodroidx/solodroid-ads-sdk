@@ -206,12 +206,15 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     applovin_native_ad.addView(nativeAdView);
                                     applovin_native_ad.setVisibility(View.VISIBLE);
                                     native_ad_view_container.setVisibility(View.VISIBLE);
+
+                                    Log.d(TAG, "Max Native Ad loaded successfully");
                                 }
 
                                 @Override
                                 public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
                                     // We recommend retrying with exponentially higher delays up to a maximum delay
                                     loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeStyles);
+                                    Log.d(TAG, "failed to load Max Native Ad with message : " + error.getMessage() + " and error code : " + error.getCode());
                                 }
 
                                 @Override
