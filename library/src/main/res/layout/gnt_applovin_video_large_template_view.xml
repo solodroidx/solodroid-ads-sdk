@@ -73,7 +73,7 @@
                     android:fontFamily="@font/custom_font"
                     android:gravity="start"
                     android:maxLines="2"
-                    android:text="AAA"
+                    android:text=""
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                     android:textSize="@dimen/video_primary_font_size"
                     android:textStyle="bold" />
@@ -159,12 +159,11 @@
     <Button
         android:id="@+id/cta_button"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="7dp"
-        android:background="@drawable/gnt_ad_button"
         android:fontFamily="@font/custom_font"
         android:textColor="@color/gnt_white"
         android:textStyle="bold" />

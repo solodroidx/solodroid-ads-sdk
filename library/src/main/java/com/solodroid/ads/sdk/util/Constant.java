@@ -17,6 +17,7 @@ public class Constant {
 
     //native ad styles
     public static final String STYLE_NEWS = "news";
+    public static final String STYLE_RADIO = "radio";
     public static final String STYLE_VIDEO_SMALL = "video_small";
     public static final String STYLE_VIDEO_LARGE = "video_large";
 

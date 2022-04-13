@@ -396,6 +396,17 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         .setCallToActionButtonId(R.id.cta_button)
                         .build();
                 break;
+            case Constant.STYLE_RADIO:
+                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_radio_template_view)
+                        .setTitleTextViewId(R.id.title_text_view)
+                        .setBodyTextViewId(R.id.body_text_view)
+                        .setAdvertiserTextViewId(R.id.advertiser_textView)
+                        .setIconImageViewId(R.id.icon_image_view)
+                        .setMediaContentViewGroupId(R.id.media_view_container)
+                        .setOptionsContentViewGroupId(R.id.ad_options_view)
+                        .setCallToActionButtonId(R.id.cta_button)
+                        .build();
+                break;
             case Constant.STYLE_VIDEO_LARGE:
                 binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_video_large_template_view)
                         .setTitleTextViewId(R.id.title_text_view)
@@ -438,6 +449,17 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
         switch (nativeStyles) {
             case Constant.STYLE_NEWS:
                 binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_news_template_view)
+                        .setTitleTextViewId(R.id.title_text_view)
+                        .setBodyTextViewId(R.id.body_text_view)
+                        .setAdvertiserTextViewId(R.id.advertiser_textView)
+                        .setIconImageViewId(R.id.icon_image_view)
+                        .setMediaContentViewGroupId(R.id.media_view_container)
+                        .setOptionsContentViewGroupId(R.id.ad_options_view)
+                        .setCallToActionButtonId(R.id.cta_button)
+                        .build();
+                break;
+            case Constant.STYLE_RADIO:
+                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_radio_template_view)
                         .setTitleTextViewId(R.id.title_text_view)
                         .setBodyTextViewId(R.id.body_text_view)
                         .setAdvertiserTextViewId(R.id.advertiser_textView)

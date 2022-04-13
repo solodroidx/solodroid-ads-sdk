@@ -11,7 +11,6 @@ import com.google.ads.mediation.facebook.FacebookAdapter;
 import com.google.ads.mediation.facebook.FacebookExtras;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
-import com.solodroid.ads.sdk.gdpr.GDPR;
 import com.solodroid.ads.sdk.gdpr.LegacyGDPR;
 
 import java.nio.charset.StandardCharsets;
