@@ -12,7 +12,11 @@ public class Constant {
     public static final String APPLOVIN = "applovin";
     public static final String APPLOVIN_MAX = "applovin_max";
     public static final String APPLOVIN_DISCOVERY = "applovin_discovery";
+
+    //mopub ads is deprecated and has been acquired by applovin
     public static final String MOPUB = "mopub";
+
+    public static final String IRONSOURCE = "ironsource";
     public static final String NONE = "none";
 
     //native ad styles
@@ -20,6 +24,7 @@ public class Constant {
     public static final String STYLE_RADIO = "radio";
     public static final String STYLE_VIDEO_SMALL = "video_small";
     public static final String STYLE_VIDEO_LARGE = "video_large";
+    public static final String STYLE_STREAM = "stream";
 
     //startapp native ad image parameters
     public static final int STARTAPP_IMAGE_XSMALL = 1; //for image size 100px X 100px

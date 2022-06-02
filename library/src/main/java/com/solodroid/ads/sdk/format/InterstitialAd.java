@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
@@ -32,8 +33,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
+import com.ironsource.mediationsdk.IronSource;
+import com.ironsource.mediationsdk.logger.IronSourceError;
+import com.ironsource.mediationsdk.sdk.InterstitialListener;
 import com.solodroid.ads.sdk.helper.AppLovinCustomEventInterstitial;
 import com.solodroid.ads.sdk.util.Tools;
 import com.startapp.sdk.adsbase.Ad;
@@ -55,7 +57,6 @@ public class InterstitialAd {
         private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
         private StartAppAd startAppAd;
         private MaxInterstitialAd maxInterstitialAd;
-        public MoPubInterstitial mInterstitial;
         public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
         public AppLovinAd appLovinAd;
         private int retryAttempt;
@@ -69,6 +70,7 @@ public class InterstitialAd {
         private String appLovinInterstitialId = "";
         private String appLovinInterstitialZoneId = "";
         private String mopubInterstitialId = "";
+        private String ironSourceInterstitialId = "";
         private int placementStatus = 1;
         private int interval = 3;
 
@@ -124,6 +126,11 @@ public class InterstitialAd {
 
         public Builder setMopubInterstitialId(String mopubInterstitialId) {
             this.mopubInterstitialId = mopubInterstitialId;
+            return this;
+        }
+
+        public Builder setIronSourceInterstitialId(String ironSourceInterstitialId) {
+            this.ironSourceInterstitialId = ironSourceInterstitialId;
             return this;
         }
 
@@ -274,35 +281,50 @@ public class InterstitialAd {
                         break;
 
                     case MOPUB:
-                        mInterstitial = new MoPubInterstitial(activity, mopubInterstitialId);
-                        mInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
+                        //Mopub has been acquired by AppLovin
+                        break;
+
+                    case IRONSOURCE:
+                        IronSource.setInterstitialListener(new InterstitialListener() {
                             @Override
-                            public void onInterstitialLoaded(MoPubInterstitial moPubInterstitial) {
-                                Log.d(TAG, "Mopub Interstitial Ad is ready");
+                            public void onInterstitialAdReady() {
+                                Log.d(TAG, "onInterstitialAdReady");
                             }
 
                             @Override
-                            public void onInterstitialFailed(MoPubInterstitial moPubInterstitial, MoPubErrorCode moPubErrorCode) {
-                                Log.d(TAG, "failed to load Mopub Interstitial Ad");
+                            public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
+                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
                                 loadBackupInterstitialAd();
                             }
 
                             @Override
-                            public void onInterstitialShown(MoPubInterstitial moPubInterstitial) {
-
+                            public void onInterstitialAdOpened() {
+                                Log.d(TAG, "onInterstitialAdOpened");
                             }
 
                             @Override
-                            public void onInterstitialClicked(MoPubInterstitial moPubInterstitial) {
-
+                            public void onInterstitialAdClosed() {
+                                Log.d(TAG, "onInterstitialAdClosed");
+                                loadInterstitialAd();
                             }
 
                             @Override
-                            public void onInterstitialDismissed(MoPubInterstitial moPubInterstitial) {
-                                mInterstitial.load();
+                            public void onInterstitialAdShowSucceeded() {
+                                Log.d(TAG, "onInterstitialAdShowSucceeded");
+                            }
+
+                            @Override
+                            public void onInterstitialAdShowFailed(IronSourceError ironSourceError) {
+                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
+                                loadBackupInterstitialAd();
+                            }
+
+                            @Override
+                            public void onInterstitialAdClicked() {
+                                Log.d(TAG, "onInterstitialAdClicked");
                             }
                         });
-                        mInterstitial.load();
+                        IronSource.loadInterstitial();
                         break;
                 }
             }
@@ -436,34 +458,48 @@ public class InterstitialAd {
                         break;
 
                     case MOPUB:
-                        mInterstitial = new MoPubInterstitial(activity, mopubInterstitialId);
-                        mInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
+                        //Mopub has been acquired by AppLovin
+                        break;
+
+                    case IRONSOURCE:
+                        IronSource.setInterstitialListener(new InterstitialListener() {
                             @Override
-                            public void onInterstitialLoaded(MoPubInterstitial moPubInterstitial) {
-                                Log.d(TAG, "Mopub Interstitial Ad is ready");
+                            public void onInterstitialAdReady() {
+                                Log.d(TAG, "onInterstitialAdReady");
                             }
 
                             @Override
-                            public void onInterstitialFailed(MoPubInterstitial moPubInterstitial, MoPubErrorCode moPubErrorCode) {
-                                Log.d(TAG, "failed to load Mopub Interstitial Ad");
+                            public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
+                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
                             }
 
                             @Override
-                            public void onInterstitialShown(MoPubInterstitial moPubInterstitial) {
-
+                            public void onInterstitialAdOpened() {
+                                Log.d(TAG, "onInterstitialAdOpened");
                             }
 
                             @Override
-                            public void onInterstitialClicked(MoPubInterstitial moPubInterstitial) {
-
+                            public void onInterstitialAdClosed() {
+                                Log.d(TAG, "onInterstitialAdClosed");
+                                loadInterstitialAd();
                             }
 
                             @Override
-                            public void onInterstitialDismissed(MoPubInterstitial moPubInterstitial) {
-                                mInterstitial.load();
+                            public void onInterstitialAdShowSucceeded() {
+                                Log.d(TAG, "onInterstitialAdShowSucceeded");
+                            }
+
+                            @Override
+                            public void onInterstitialAdShowFailed(IronSourceError ironSourceError) {
+                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
+                            }
+
+                            @Override
+                            public void onInterstitialAdClicked() {
+                                Log.d(TAG, "onInterstitialAdClicked");
                             }
                         });
-                        mInterstitial.load();
+                        IronSource.loadInterstitial();
                         break;
 
                     case NONE:
@@ -540,13 +576,15 @@ public class InterstitialAd {
                             break;
 
                         case MOPUB:
-                            if (mInterstitial.isReady()) {
-                                mInterstitial.show();
+                            //Mopub has been acquired by AppLovin
+                            break;
+
+                        case IRONSOURCE:
+                            if (IronSource.isInterstitialReady()) {
+                                IronSource.showInterstitial(ironSourceInterstitialId);
                             } else {
                                 showBackupInterstitialAd();
                             }
-                            Log.d(TAG, "show " + adNetwork + " Interstitial Id : " + mopubInterstitialId);
-                            Log.d(TAG, "counter : " + counter);
                             break;
                     }
                     counter = 1;
@@ -611,8 +649,12 @@ public class InterstitialAd {
                         break;
 
                     case MOPUB:
-                        if (mInterstitial.isReady()) {
-                            mInterstitial.show();
+                        //Mopub has been acquired by AppLovin
+                        break;
+
+                    case IRONSOURCE:
+                        if (IronSource.isInterstitialReady()) {
+                            IronSource.showInterstitial(ironSourceInterstitialId);
                         }
                         break;
 

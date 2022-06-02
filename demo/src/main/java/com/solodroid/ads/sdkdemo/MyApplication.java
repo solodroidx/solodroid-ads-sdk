@@ -1,14 +1,12 @@
 package com.solodroid.ads.sdkdemo;
 
-import static com.solodroid.ads.sdkdemo.MainActivity.ADMOB_APP_OPEN_AD_ID;
+import static com.solodroid.ads.sdk.util.Constant.ADMOB;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-
-import android.app.Application.ActivityLifecycleCallbacks;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,9 +17,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDex;
 
 import com.google.android.gms.ads.MobileAds;
-import com.solodroid.ads.sdk.format.AdNetwork;
 import com.solodroid.ads.sdk.format.AppOpenAdManager;
-import com.solodroid.ads.sdk.util.Constant;
 import com.solodroid.ads.sdk.util.OnShowAdCompleteListener;
 
 public class MyApplication extends Application implements ActivityLifecycleCallbacks, LifecycleObserver {
@@ -59,8 +55,8 @@ public class MyApplication extends Application implements ActivityLifecycleCallb
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     protected void onMoveToForeground() {
         // Show the ad (if available) when the app moves to foreground.
-        if (MainActivity.AD_NETWORK.equals(Constant.ADMOB)) {
-            appOpenAdManager.showAdIfAvailable(currentActivity, ADMOB_APP_OPEN_AD_ID);
+        if (Constant.AD_NETWORK.equals(ADMOB)) {
+            appOpenAdManager.showAdIfAvailable(currentActivity, Constant.ADMOB_APP_OPEN_AD_ID);
         }
     }
 
@@ -70,7 +66,7 @@ public class MyApplication extends Application implements ActivityLifecycleCallb
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
-        if (MainActivity.AD_NETWORK.equals(Constant.ADMOB)) {
+        if (Constant.AD_NETWORK.equals(ADMOB)) {
             if (!appOpenAdManager.isShowingAd) {
                 currentActivity = activity;
             }
@@ -100,8 +96,8 @@ public class MyApplication extends Application implements ActivityLifecycleCallb
     public void showAdIfAvailable(@NonNull Activity activity, @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
         // We wrap the showAdIfAvailable to enforce that other classes only interact with MyApplication
         // class.
-        if (MainActivity.AD_NETWORK.equals(Constant.ADMOB)) {
-            appOpenAdManager.showAdIfAvailable(activity, ADMOB_APP_OPEN_AD_ID, onShowAdCompleteListener);
+        if (Constant.AD_NETWORK.equals(ADMOB)) {
+            appOpenAdManager.showAdIfAvailable(activity, Constant.ADMOB_APP_OPEN_AD_ID, onShowAdCompleteListener);
         }
     }
 

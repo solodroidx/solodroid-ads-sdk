@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
@@ -17,17 +18,13 @@ import com.applovin.sdk.AppLovinMediationProvider;
 import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.AdapterStatus;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
-import com.mopub.mobileads.FacebookBanner;
+import com.ironsource.mediationsdk.IronSource;
 import com.solodroid.ads.sdk.helper.AudienceNetworkInitializeHelper;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.UnityAds;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class AdNetwork {
@@ -44,6 +41,7 @@ public class AdNetwork {
         private String unityGameId = "";
         private String appLovinSdkKey = "";
         private String mopubBannerId = "";
+        private String ironSourceAppKey = "";
         private boolean debug = true;
 
         public Initialize(Activity activity) {
@@ -93,6 +91,11 @@ public class AdNetwork {
 
         public Initialize setMopubBannerId(String mopubBannerId) {
             this.mopubBannerId = mopubBannerId;
+            return this;
+        }
+
+        public Initialize setIronSourceAppKey(String ironSourceAppKey) {
+            this.ironSourceAppKey = ironSourceAppKey;
             return this;
         }
 
@@ -147,11 +150,13 @@ public class AdNetwork {
                         break;
 
                     case MOPUB:
-                        Map<String, String> facebookBanner = new HashMap<>();
-                        facebookBanner.put("native_banner", "true");
-                        SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(mopubBannerId);
-                        configBuilder.withMediatedNetworkConfiguration(FacebookBanner.class.getName(), facebookBanner);
-                        MoPub.initializeSdk(activity, configBuilder.build(), initSdkListener());
+                        //Mopub has been acquired by AppLovin
+                        break;
+
+                    case IRONSOURCE:
+                        String advertisingId = IronSource.getAdvertiserId(activity);
+                        IronSource.setUserId(advertisingId);
+                        IronSource.init(activity, ironSourceAppKey);
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -204,11 +209,13 @@ public class AdNetwork {
                         break;
 
                     case MOPUB:
-                        Map<String, String> facebookBanner = new HashMap<>();
-                        facebookBanner.put("native_banner", "true");
-                        SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(mopubBannerId);
-                        configBuilder.withMediatedNetworkConfiguration(FacebookBanner.class.getName(), facebookBanner);
-                        MoPub.initializeSdk(activity, configBuilder.build(), initSdkListener());
+                        //Mopub has been acquired by AppLovin
+                        break;
+
+                    case IRONSOURCE:
+                        String advertisingId = IronSource.getAdvertiserId(activity);
+                        IronSource.setUserId(advertisingId);
+                        IronSource.init(activity, ironSourceAppKey);
                         break;
 
                     case NONE:
@@ -217,11 +224,6 @@ public class AdNetwork {
                 }
                 Log.d(TAG, "[" + backupAdNetwork + "] is selected as Backup Ads");
             }
-        }
-
-        private static SdkInitializationListener initSdkListener() {
-            return () -> {
-            };
         }
 
     }

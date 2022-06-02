@@ -1,14 +1,13 @@
 package com.solodroid.ads.sdkdemo;
 
+import static com.solodroid.ads.sdk.util.Constant.ADMOB;
+
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.solodroid.ads.sdk.util.Constant;
-import com.solodroid.ads.sdk.util.OnShowAdCompleteListener;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if (MainActivity.AD_NETWORK.equals(Constant.ADMOB)) {
+        if (Constant.AD_NETWORK.equals(ADMOB)) {
             application = ((MyApplication) getApplication());
             ((MyApplication) application).showAdIfAvailable(ActivitySplash.this, this::createTimer);
         } else {

@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
@@ -35,8 +36,10 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
+import com.ironsource.mediationsdk.ISBannerSize;
+import com.ironsource.mediationsdk.IronSource;
+import com.ironsource.mediationsdk.IronSourceBannerLayout;
+import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.solodroid.ads.sdk.R;
 import com.solodroid.ads.sdk.helper.AppLovinCustomEventBanner;
 import com.solodroid.ads.sdk.util.Tools;
@@ -53,8 +56,9 @@ public class BannerAd {
         private static final String TAG = "AdNetwork";
         private final Activity activity;
         private AdView adView;
-        private MoPubView moPubView;
         private AppLovinAdView appLovinAdView;
+        FrameLayout ironSourceBannerView;
+        private IronSourceBannerLayout ironSourceBannerLayout;
 
         private String adStatus = "";
         private String adNetwork = "";
@@ -64,6 +68,7 @@ public class BannerAd {
         private String appLovinBannerId = "";
         private String appLovinBannerZoneId = "";
         private String mopubBannerId = "";
+        private String ironSourceBannerId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
         private boolean legacyGDPR = false;
@@ -114,6 +119,11 @@ public class BannerAd {
 
         public Builder setMopubBannerId(String mopubBannerId) {
             this.mopubBannerId = mopubBannerId;
+            return this;
+        }
+
+        public Builder setIronSourceBannerId(String ironSourceBannerId) {
+            this.ironSourceBannerId = ironSourceBannerId;
             return this;
         }
 
@@ -325,39 +335,53 @@ public class BannerAd {
                         break;
 
                     case MOPUB:
-                        RelativeLayout mopubAdView = activity.findViewById(R.id.mopub_banner_view_container);
-                        moPubView = new MoPubView(activity);
-                        moPubView.setAdUnitId(mopubBannerId);
-                        mopubAdView.addView(moPubView);
-                        moPubView.loadAd(MoPubView.MoPubAdSize.HEIGHT_50);
-                        moPubView.setBannerAdListener(new MoPubView.BannerAdListener() {
-                            @Override
-                            public void onBannerLoaded(@NonNull MoPubView moPubView) {
-                                mopubAdView.setVisibility(View.VISIBLE);
-                            }
+                        //Mopub has been acquired by AppLovin
+                        break;
 
-                            @Override
-                            public void onBannerFailed(MoPubView moPubView, MoPubErrorCode moPubErrorCode) {
-                                mopubAdView.setVisibility(View.GONE);
-                                loadBackupBannerAd();
-                            }
+                    case IRONSOURCE:
+                        ironSourceBannerView = activity.findViewById(R.id.ironsource_banner_view_container);
+                        ISBannerSize size = ISBannerSize.BANNER;
+                        ironSourceBannerLayout = IronSource.createBanner(activity, size);
+                        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                        ironSourceBannerView.addView(ironSourceBannerLayout, 0, layoutParams);
+                        if (ironSourceBannerLayout != null) {
+                            ironSourceBannerLayout.setBannerListener(new com.ironsource.mediationsdk.sdk.BannerListener() {
+                                @Override
+                                public void onBannerAdLoaded() {
+                                    Log.d(TAG, "onBannerAdLoaded");
+                                    ironSourceBannerView.setVisibility(View.VISIBLE);
+                                }
 
-                            @Override
-                            public void onBannerClicked(MoPubView moPubView) {
+                                @Override
+                                public void onBannerAdLoadFailed(IronSourceError error) {
+                                    Log.d(TAG, "onBannerAdLoadFailed" + " " + error);
+                                    loadBackupBannerAd();
+                                }
 
-                            }
+                                @Override
+                                public void onBannerAdClicked() {
+                                    Log.d(TAG, "onBannerAdClicked");
+                                }
 
-                            @Override
-                            public void onBannerExpanded(MoPubView moPubView) {
+                                @Override
+                                public void onBannerAdScreenPresented() {
+                                    Log.d(TAG, "onBannerAdScreenPresented");
+                                }
 
-                            }
+                                @Override
+                                public void onBannerAdScreenDismissed() {
+                                    Log.d(TAG, "onBannerAdScreenDismissed");
+                                }
 
-                            @Override
-                            public void onBannerCollapsed(MoPubView moPubView) {
-
-                            }
-                        });
-                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + mopubBannerId);
+                                @Override
+                                public void onBannerAdLeftApplication() {
+                                    Log.d(TAG, "onBannerAdLeftApplication");
+                                }
+                            });
+                            IronSource.loadBanner(ironSourceBannerLayout, ironSourceBannerId);
+                        } else {
+                            Log.d(TAG, "IronSource.createBanner returned null");
+                        }
                         break;
 
                     case NONE:
@@ -558,43 +582,71 @@ public class BannerAd {
                         break;
 
                     case MOPUB:
-                        RelativeLayout mopubAdView = activity.findViewById(R.id.mopub_banner_view_container);
-                        moPubView = new MoPubView(activity);
-                        moPubView.setAdUnitId(mopubBannerId);
-                        mopubAdView.addView(moPubView);
-                        moPubView.loadAd(MoPubView.MoPubAdSize.HEIGHT_50);
-                        moPubView.setBannerAdListener(new MoPubView.BannerAdListener() {
-                            @Override
-                            public void onBannerLoaded(@NonNull MoPubView moPubView) {
-                                mopubAdView.setVisibility(View.VISIBLE);
-                            }
+                        //Mopub has been acquired by AppLovin
+                        break;
 
-                            @Override
-                            public void onBannerFailed(MoPubView moPubView, MoPubErrorCode moPubErrorCode) {
-                                mopubAdView.setVisibility(View.GONE);
-                            }
+                    case IRONSOURCE:
+                        ironSourceBannerView = activity.findViewById(R.id.ironsource_banner_view_container);
+                        ISBannerSize size = ISBannerSize.BANNER;
+                        ironSourceBannerLayout = IronSource.createBanner(activity, size);
+                        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                        ironSourceBannerView.addView(ironSourceBannerLayout, 0, layoutParams);
+                        if (ironSourceBannerLayout != null) {
+                            ironSourceBannerLayout.setBannerListener(new com.ironsource.mediationsdk.sdk.BannerListener() {
+                                @Override
+                                public void onBannerAdLoaded() {
+                                    Log.d(TAG, "onBannerAdLoaded");
+                                    ironSourceBannerView.setVisibility(View.VISIBLE);
+                                }
 
-                            @Override
-                            public void onBannerClicked(MoPubView moPubView) {
+                                @Override
+                                public void onBannerAdLoadFailed(IronSourceError error) {
+                                    Log.d(TAG, "onBannerAdLoadFailed" + " " + error);
+                                }
 
-                            }
+                                @Override
+                                public void onBannerAdClicked() {
+                                    Log.d(TAG, "onBannerAdClicked");
+                                }
 
-                            @Override
-                            public void onBannerExpanded(MoPubView moPubView) {
+                                @Override
+                                public void onBannerAdScreenPresented() {
+                                    Log.d(TAG, "onBannerAdScreenPresented");
+                                }
 
-                            }
+                                @Override
+                                public void onBannerAdScreenDismissed() {
+                                    Log.d(TAG, "onBannerAdScreenDismissed");
+                                }
 
-                            @Override
-                            public void onBannerCollapsed(MoPubView moPubView) {
-
-                            }
-                        });
-                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + mopubBannerId);
+                                @Override
+                                public void onBannerAdLeftApplication() {
+                                    Log.d(TAG, "onBannerAdLeftApplication");
+                                }
+                            });
+                            IronSource.loadBanner(ironSourceBannerLayout, ironSourceBannerId);
+                        } else {
+                            Log.d(TAG, "IronSource.createBanner returned null");
+                        }
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");
             } else {
                 Log.d(TAG, "Banner Ad is disabled");
+            }
+        }
+
+        public void destroyAndDetachBanner() {
+            if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
+                if (adNetwork.equals(IRONSOURCE) || backupAdNetwork.equals(IRONSOURCE)) {
+                    if (ironSourceBannerView != null) {
+                        Log.d(TAG, "ironSource banner is not null, ready to destroy");
+                        IronSource.destroyBanner(ironSourceBannerLayout);
+                        ironSourceBannerView.removeView(ironSourceBannerLayout);
+                    } else {
+                        Log.d(TAG, "ironSource banner is null");
+                    }
+                }
             }
         }
 

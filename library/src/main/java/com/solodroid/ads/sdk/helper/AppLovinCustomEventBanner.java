@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 
 import com.applovin.adview.AppLovinAdView;
 import com.applovin.sdk.AppLovinAd;
-import com.applovin.sdk.AppLovinAdClickListener;
 import com.applovin.sdk.AppLovinAdDisplayListener;
 import com.applovin.sdk.AppLovinAdLoadListener;
 import com.applovin.sdk.AppLovinAdSize;
