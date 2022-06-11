@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
@@ -108,6 +109,7 @@ public class AdNetwork {
             if (adStatus.equals(AD_STATUS_ON)) {
                 switch (adNetwork) {
                     case ADMOB:
+                    case GOOGLE_AD_MANAGER:
                         MobileAds.initialize(activity, initializationStatus -> {
                             Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
                             for (String adapterClass : statusMap.keySet()) {
@@ -167,6 +169,7 @@ public class AdNetwork {
             if (adStatus.equals(AD_STATUS_ON)) {
                 switch (backupAdNetwork) {
                     case ADMOB:
+                    case GOOGLE_AD_MANAGER:
                         MobileAds.initialize(activity, initializationStatus -> {
                             Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
                             for (String adapterClass : statusMap.keySet()) {

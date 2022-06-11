@@ -7,6 +7,7 @@ public class Constant {
 
     //ad option
     public static final String ADMOB = "admob";
+    public static final String GOOGLE_AD_MANAGER = "google_ad_manager";
     public static final String STARTAPP = "startapp";
     public static final String UNITY = "unity";
     public static final String APPLOVIN = "applovin";

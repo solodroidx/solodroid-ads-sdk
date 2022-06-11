@@ -19,6 +19,13 @@
             android:visibility="gone"
             app:gnt_template_type="@layout/gnt_admob_radio_template_view" />
 
+        <com.solodroid.ads.sdk.util.AdManagerTemplateView
+            android:id="@+id/google_ad_manager_native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:gnt_template_type="@layout/gnt_ad_manager_radio_template_view" />
+
         <include
             android:id="@+id/startapp_native_ad_container"
             layout="@layout/gnt_startapp_radio_template_view"

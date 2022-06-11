@@ -3,13 +3,18 @@ package com.solodroid.ads.sdkdemo;
 public class Constant {
 
     public static final String AD_STATUS = "1";
-    public static final String AD_NETWORK = "admob";
+    public static final String AD_NETWORK = "google_ad_manager";
     public static final String BACKUP_AD_NETWORK = "ironsource";
 
     public static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
     public static final String ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
     public static final String ADMOB_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110";
     public static final String ADMOB_APP_OPEN_AD_ID = "ca-app-pub-3940256099942544/3419835294";
+
+    public static final String GOOGLE_AD_MANAGER_BANNER_ID = "/6499/example/banner";
+    public static final String GOOGLE_AD_MANAGER_INTERSTITIAL_ID = "/6499/example/interstitial";
+    public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/6499/example/native";
+    public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/6499/example/app-open";
 
     public static final String STARTAPP_APP_ID = "0";
 

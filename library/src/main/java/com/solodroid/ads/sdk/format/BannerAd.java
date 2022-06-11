@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
@@ -36,6 +37,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.ironsource.mediationsdk.ISBannerSize;
 import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.IronSourceBannerLayout;
@@ -56,6 +58,7 @@ public class BannerAd {
         private static final String TAG = "AdNetwork";
         private final Activity activity;
         private AdView adView;
+        private AdManagerAdView adManagerAdView;
         private AppLovinAdView appLovinAdView;
         FrameLayout ironSourceBannerView;
         private IronSourceBannerLayout ironSourceBannerLayout;
@@ -64,6 +67,7 @@ public class BannerAd {
         private String adNetwork = "";
         private String backupAdNetwork = "";
         private String adMobBannerId = "";
+        private String googleAdManagerBannerId = "";
         private String unityBannerId = "";
         private String appLovinBannerId = "";
         private String appLovinBannerZoneId = "";
@@ -99,6 +103,11 @@ public class BannerAd {
 
         public Builder setAdMobBannerId(String adMobBannerId) {
             this.adMobBannerId = adMobBannerId;
+            return this;
+        }
+
+        public Builder setGoogleAdManagerBannerId(String googleAdManagerBannerId) {
+            this.googleAdManagerBannerId = googleAdManagerBannerId;
             return this;
         }
 
@@ -187,6 +196,52 @@ public class BannerAd {
                             });
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
+                        break;
+
+                    case GOOGLE_AD_MANAGER:
+                        FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
+                        googleAdContainerView.post(() -> {
+                            adManagerAdView = new AdManagerAdView(activity);
+                            adManagerAdView.setAdUnitId(googleAdManagerBannerId);
+                            googleAdContainerView.removeAllViews();
+                            googleAdContainerView.addView(adManagerAdView);
+                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
+                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
+                            adManagerAdView.setAdListener(new AdListener() {
+                                @Override
+                                public void onAdClicked() {
+                                    super.onAdClicked();
+                                }
+
+                                @Override
+                                public void onAdClosed() {
+                                    super.onAdClosed();
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                    super.onAdFailedToLoad(loadAdError);
+                                    googleAdContainerView.setVisibility(View.GONE);
+                                    loadBackupBannerAd();
+                                }
+
+                                @Override
+                                public void onAdImpression() {
+                                    super.onAdImpression();
+                                }
+
+                                @Override
+                                public void onAdLoaded() {
+                                    super.onAdLoaded();
+                                    googleAdContainerView.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAdOpened() {
+                                    super.onAdOpened();
+                                }
+                            });
+                        });
                         break;
 
                     case STARTAPP:
@@ -438,6 +493,51 @@ public class BannerAd {
                             });
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
+                        break;
+
+                    case GOOGLE_AD_MANAGER:
+                        FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
+                        googleAdContainerView.post(() -> {
+                            adManagerAdView = new AdManagerAdView(activity);
+                            adManagerAdView.setAdUnitId(googleAdManagerBannerId);
+                            googleAdContainerView.removeAllViews();
+                            googleAdContainerView.addView(adManagerAdView);
+                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
+                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
+                            adManagerAdView.setAdListener(new AdListener() {
+                                @Override
+                                public void onAdClicked() {
+                                    super.onAdClicked();
+                                }
+
+                                @Override
+                                public void onAdClosed() {
+                                    super.onAdClosed();
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                    super.onAdFailedToLoad(loadAdError);
+                                    googleAdContainerView.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onAdImpression() {
+                                    super.onAdImpression();
+                                }
+
+                                @Override
+                                public void onAdLoaded() {
+                                    super.onAdLoaded();
+                                    googleAdContainerView.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAdOpened() {
+                                    super.onAdOpened();
+                                }
+                            });
+                        });
                         break;
 
                     case STARTAPP:

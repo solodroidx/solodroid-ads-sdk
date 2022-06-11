@@ -5,6 +5,7 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
@@ -29,9 +30,12 @@ import com.applovin.sdk.AppLovinAd;
 import com.applovin.sdk.AppLovinAdLoadListener;
 import com.applovin.sdk.AppLovinAdSize;
 import com.applovin.sdk.AppLovinSdk;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.logger.IronSourceError;
@@ -55,6 +59,7 @@ public class InterstitialAd {
         private static final String TAG = "AdNetwork";
         private final Activity activity;
         private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
+        private AdManagerInterstitialAd adManagerInterstitialAd;
         private StartAppAd startAppAd;
         private MaxInterstitialAd maxInterstitialAd;
         public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
@@ -66,6 +71,7 @@ public class InterstitialAd {
         private String adNetwork = "";
         private String backupAdNetwork = "";
         private String adMobInterstitialId = "";
+        private String googleAdManagerInterstitialId = "";
         private String unityInterstitialId = "";
         private String appLovinInterstitialId = "";
         private String appLovinInterstitialZoneId = "";
@@ -106,6 +112,11 @@ public class InterstitialAd {
 
         public Builder setAdMobInterstitialId(String adMobInterstitialId) {
             this.adMobInterstitialId = adMobInterstitialId;
+            return this;
+        }
+
+        public Builder setGoogleAdManagerInterstitialId(String googleAdManagerInterstitialId) {
+            this.googleAdManagerInterstitialId = googleAdManagerInterstitialId;
             return this;
         }
 
@@ -183,6 +194,52 @@ public class InterstitialAd {
                                 adMobInterstitialAd = null;
                                 loadBackupInterstitialAd();
                                 Log.d(TAG, "Failed load AdMob Interstitial Ad");
+                            }
+                        });
+                        break;
+
+                    case GOOGLE_AD_MANAGER:
+                        AdManagerInterstitialAd.load(activity, googleAdManagerInterstitialId, Tools.getGoogleAdManagerRequest(), new AdManagerInterstitialAdLoadCallback() {
+                            @Override
+                            public void onAdLoaded(@NonNull AdManagerInterstitialAd interstitialAd) {
+                                super.onAdLoaded(adManagerInterstitialAd);
+                                adManagerInterstitialAd = interstitialAd;
+                                adManagerInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdClicked() {
+                                        super.onAdClicked();
+                                    }
+
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        super.onAdDismissedFullScreenContent();
+                                        loadInterstitialAd();
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    }
+
+                                    @Override
+                                    public void onAdImpression() {
+                                        super.onAdImpression();
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        super.onAdShowedFullScreenContent();
+                                        adManagerInterstitialAd = null;
+                                        Log.d(TAG, "The ad was shown.");
+                                    }
+                                });
+                            }
+                            @Override
+                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                super.onAdFailedToLoad(loadAdError);
+                                adManagerInterstitialAd = null;
+                                loadBackupInterstitialAd();
+                                Log.d(TAG, "Failed load Ad Manager Interstitial Ad");
                             }
                         });
                         break;
@@ -367,6 +424,51 @@ public class InterstitialAd {
                         });
                         break;
 
+                    case GOOGLE_AD_MANAGER:
+                        AdManagerInterstitialAd.load(activity, googleAdManagerInterstitialId, Tools.getGoogleAdManagerRequest(), new AdManagerInterstitialAdLoadCallback() {
+                            @Override
+                            public void onAdLoaded(@NonNull AdManagerInterstitialAd interstitialAd) {
+                                super.onAdLoaded(adManagerInterstitialAd);
+                                adManagerInterstitialAd = interstitialAd;
+                                adManagerInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdClicked() {
+                                        super.onAdClicked();
+                                    }
+
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        super.onAdDismissedFullScreenContent();
+                                        loadInterstitialAd();
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    }
+
+                                    @Override
+                                    public void onAdImpression() {
+                                        super.onAdImpression();
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        super.onAdShowedFullScreenContent();
+                                        adManagerInterstitialAd = null;
+                                        Log.d(TAG, "The ad was shown.");
+                                    }
+                                });
+                            }
+                            @Override
+                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                super.onAdFailedToLoad(loadAdError);
+                                adManagerInterstitialAd = null;
+                                Log.d(TAG, "Failed load Ad Manager Interstitial Ad");
+                            }
+                        });
+                        break;
+
                     case STARTAPP:
                         startAppAd = new StartAppAd(activity);
                         startAppAd.loadAd(new AdEventListener() {
@@ -520,6 +622,16 @@ public class InterstitialAd {
                             } else {
                                 showBackupInterstitialAd();
                                 Log.d(TAG, "admob interstitial null");
+                            }
+                            break;
+
+                        case GOOGLE_AD_MANAGER:
+                            if (adManagerInterstitialAd != null) {
+                                adManagerInterstitialAd.show(activity);
+                                Log.d(TAG, "ad manager interstitial not null");
+                            } else {
+                                showBackupInterstitialAd();
+                                Log.d(TAG, "ad manager interstitial null");
                             }
                             break;
 

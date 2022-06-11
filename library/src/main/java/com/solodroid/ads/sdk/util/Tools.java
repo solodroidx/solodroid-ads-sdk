@@ -11,6 +11,7 @@ import com.google.ads.mediation.facebook.FacebookAdapter;
 import com.google.ads.mediation.facebook.FacebookExtras;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.solodroid.ads.sdk.gdpr.LegacyGDPR;
 
 import java.nio.charset.StandardCharsets;
@@ -41,6 +42,11 @@ public class Tools {
                     .addNetworkExtrasBundle(FacebookAdapter.class, extras)
                     .build();
         }
+    }
+
+    public static AdManagerAdRequest getGoogleAdManagerRequest() {
+        return new AdManagerAdRequest.Builder()
+                .build();
     }
 
     public static String decode(String code) {
