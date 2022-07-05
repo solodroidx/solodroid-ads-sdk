@@ -31,5 +31,20 @@
       <option name="name" value="maven2" />
       <option name="url" value="https://android-sdk.is.com/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://unity3ddist.jfrog.io/artifactory/unity-mediation-mvn-prod-local/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://startappdev.bintray.com/maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="BintrayJCenter" />
+      <option name="name" value="BintrayJCenter" />
+      <option name="url" value="https://jcenter.bintray.com/" />
+    </remote-repository>
   </component>
 </project>

@@ -25,6 +25,10 @@ import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.UnityAds;
+import com.unity3d.mediation.IInitializationListener;
+import com.unity3d.mediation.InitializationConfiguration;
+import com.unity3d.mediation.UnityMediation;
+import com.unity3d.mediation.errors.SdkInitializationError;
 
 import java.util.Map;
 
@@ -127,17 +131,20 @@ public class AdNetwork {
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
-                        UnityAds.initialize(activity.getApplicationContext(), unityGameId, debug, new IUnityAdsInitializationListener() {
-                            @Override
-                            public void onInitializationComplete() {
-                                Log.d(TAG, "Unity Ads Initialization Complete with ID : " + unityGameId);
-                            }
+                        InitializationConfiguration configuration = InitializationConfiguration.builder()
+                                .setGameId(unityGameId)
+                                .setInitializationListener(new IInitializationListener() {
+                                    @Override
+                                    public void onInitializationComplete() {
+                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
+                                    }
 
-                            @Override
-                            public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
-                                Log.d(TAG, "Unity Ads Initialization Failed: [" + error + "] " + message);
-                            }
-                        });
+                                    @Override
+                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
+                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
+                                    }
+                                }).build();
+                        UnityMediation.initialize(configuration);
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:
@@ -187,17 +194,20 @@ public class AdNetwork {
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
-                        UnityAds.initialize(activity.getApplicationContext(), unityGameId, debug, new IUnityAdsInitializationListener() {
-                            @Override
-                            public void onInitializationComplete() {
-                                Log.d(TAG, "Unity Ads Initialization Complete with ID : " + unityGameId);
-                            }
+                        InitializationConfiguration configuration = InitializationConfiguration.builder()
+                                .setGameId(unityGameId)
+                                .setInitializationListener(new IInitializationListener() {
+                                    @Override
+                                    public void onInitializationComplete() {
+                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
+                                    }
 
-                            @Override
-                            public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
-                                Log.d(TAG, "Unity Ads Initialization Failed: [" + error + "] " + message);
-                            }
-                        });
+                                    @Override
+                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
+                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
+                                    }
+                                }).build();
+                        UnityMediation.initialize(configuration);
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:

@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         google()
@@ -16,11 +15,16 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        //noinspection JcenterRepositoryObsolete
+        jcenter()
         maven {
             url 'https://jitpack.io'
         }
         maven {
             url 'https://android-sdk.is.com/'
+        }
+        maven {
+            url 'https://unity3ddist.jfrog.io/artifactory/unity-mediation-mvn-prod-local/'
         }
     }
 }
