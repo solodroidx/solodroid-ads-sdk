@@ -45,14 +45,6 @@ import com.solodroid.ads.sdk.util.Tools;
 import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
-import com.unity3d.ads.IUnityAdsLoadListener;
-import com.unity3d.ads.IUnityAdsShowListener;
-import com.unity3d.ads.UnityAds;
-import com.unity3d.ads.UnityAdsShowOptions;
-import com.unity3d.mediation.IInterstitialAdLoadListener;
-import com.unity3d.mediation.IInterstitialAdShowListener;
-import com.unity3d.mediation.errors.LoadError;
-import com.unity3d.mediation.errors.ShowError;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +57,7 @@ public class InterstitialAd {
         private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
         private AdManagerInterstitialAd adManagerInterstitialAd;
         private StartAppAd startAppAd;
-        private com.unity3d.mediation.InterstitialAd unityInterstitialAd;
+//        private com.unity3d.mediation.InterstitialAd unityInterstitialAd;
         private MaxInterstitialAd maxInterstitialAd;
         public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
         public AppLovinAd appLovinAd;
@@ -267,21 +259,21 @@ public class InterstitialAd {
                         break;
 
                     case UNITY:
-                        unityInterstitialAd = new com.unity3d.mediation.InterstitialAd(activity, unityInterstitialId);
-                        final IInterstitialAdLoadListener unityAdLoadListener = new IInterstitialAdLoadListener() {
-                            @Override
-                            public void onInterstitialLoaded(com.unity3d.mediation.InterstitialAd interstitialAd) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onInterstitialFailedLoad(com.unity3d.mediation.InterstitialAd interstitialAd, LoadError loadError, String s) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + s);
-                                loadBackupInterstitialAd();
-                            }
-
-                        };
-                        unityInterstitialAd.load(unityAdLoadListener);
+//                        unityInterstitialAd = new com.unity3d.mediation.InterstitialAd(activity, unityInterstitialId);
+//                        final IInterstitialAdLoadListener unityAdLoadListener = new IInterstitialAdLoadListener() {
+//                            @Override
+//                            public void onInterstitialLoaded(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//                                Log.d(TAG, "unity interstitial ad loaded");
+//                            }
+//
+//                            @Override
+//                            public void onInterstitialFailedLoad(com.unity3d.mediation.InterstitialAd interstitialAd, LoadError loadError, String s) {
+//                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + s);
+//                                loadBackupInterstitialAd();
+//                            }
+//
+//                        };
+//                        unityInterstitialAd.load(unityAdLoadListener);
                         break;
 
                     case APPLOVIN:
@@ -496,20 +488,20 @@ public class InterstitialAd {
                         break;
 
                     case UNITY:
-                        unityInterstitialAd = new com.unity3d.mediation.InterstitialAd(activity, unityInterstitialId);
-                        final IInterstitialAdLoadListener unityAdLoadListener = new IInterstitialAdLoadListener() {
-                            @Override
-                            public void onInterstitialLoaded(com.unity3d.mediation.InterstitialAd interstitialAd) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onInterstitialFailedLoad(com.unity3d.mediation.InterstitialAd interstitialAd, LoadError loadError, String s) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + s);
-                            }
-
-                        };
-                        unityInterstitialAd.load(unityAdLoadListener);
+//                        unityInterstitialAd = new com.unity3d.mediation.InterstitialAd(activity, unityInterstitialId);
+//                        final IInterstitialAdLoadListener unityAdLoadListener = new IInterstitialAdLoadListener() {
+//                            @Override
+//                            public void onInterstitialLoaded(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//                                Log.d(TAG, "unity interstitial ad loaded");
+//                            }
+//
+//                            @Override
+//                            public void onInterstitialFailedLoad(com.unity3d.mediation.InterstitialAd interstitialAd, LoadError loadError, String s) {
+//                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + s);
+//                            }
+//
+//                        };
+//                        unityInterstitialAd.load(unityAdLoadListener);
                         break;
 
                     case APPLOVIN:
@@ -659,29 +651,29 @@ public class InterstitialAd {
                             break;
 
                         case UNITY:
-                            final IInterstitialAdShowListener showListener = new IInterstitialAdShowListener() {
-                                @Override
-                                public void onInterstitialShowed(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                                }
-
-                                @Override
-                                public void onInterstitialClicked(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                                }
-
-                                @Override
-                                public void onInterstitialClosed(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                                }
-
-                                @Override
-                                public void onInterstitialFailedShow(com.unity3d.mediation.InterstitialAd interstitialAd, ShowError showError, String s) {
-                                    Log.d(TAG, "unity ads show failure");
-                                    showBackupInterstitialAd();
-                                }
-                            };
-                            unityInterstitialAd.show(showListener);
+//                            final IInterstitialAdShowListener showListener = new IInterstitialAdShowListener() {
+//                                @Override
+//                                public void onInterstitialShowed(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onInterstitialClicked(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onInterstitialClosed(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onInterstitialFailedShow(com.unity3d.mediation.InterstitialAd interstitialAd, ShowError showError, String s) {
+//                                    Log.d(TAG, "unity ads show failure");
+//                                    showBackupInterstitialAd();
+//                                }
+//                            };
+//                            unityInterstitialAd.show(showListener);
                             break;
 
                         case APPLOVIN:
@@ -738,29 +730,29 @@ public class InterstitialAd {
                         break;
 
                     case UNITY:
-                        final IInterstitialAdShowListener showListener = new IInterstitialAdShowListener() {
-                            @Override
-                            public void onInterstitialShowed(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                            }
-
-                            @Override
-                            public void onInterstitialClicked(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                            }
-
-                            @Override
-                            public void onInterstitialClosed(com.unity3d.mediation.InterstitialAd interstitialAd) {
-
-                            }
-
-                            @Override
-                            public void onInterstitialFailedShow(com.unity3d.mediation.InterstitialAd interstitialAd, ShowError showError, String s) {
-                                Log.d(TAG, "unity ads show failure");
-                                showBackupInterstitialAd();
-                            }
-                        };
-                        unityInterstitialAd.show(showListener);
+//                        final IInterstitialAdShowListener showListener = new IInterstitialAdShowListener() {
+//                            @Override
+//                            public void onInterstitialShowed(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onInterstitialClicked(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onInterstitialClosed(com.unity3d.mediation.InterstitialAd interstitialAd) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onInterstitialFailedShow(com.unity3d.mediation.InterstitialAd interstitialAd, ShowError showError, String s) {
+//                                Log.d(TAG, "unity ads show failure");
+//                                showBackupInterstitialAd();
+//                            }
+//                        };
+//                        unityInterstitialAd.show(showListener);
                         break;
 
                     case APPLOVIN:

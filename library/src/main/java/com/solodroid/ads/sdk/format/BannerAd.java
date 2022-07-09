@@ -11,8 +11,6 @@ import static com.solodroid.ads.sdk.util.Constant.MOPUB;
 import static com.solodroid.ads.sdk.util.Constant.NONE;
 import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 import static com.solodroid.ads.sdk.util.Constant.UNITY;
-import static com.solodroid.ads.sdk.util.Constant.UNITY_ADS_BANNER_HEIGHT_MEDIUM;
-import static com.solodroid.ads.sdk.util.Constant.UNITY_ADS_BANNER_WIDTH_MEDIUM;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -47,9 +45,6 @@ import com.solodroid.ads.sdk.helper.AppLovinCustomEventBanner;
 import com.solodroid.ads.sdk.util.Tools;
 import com.startapp.sdk.ads.banner.Banner;
 import com.startapp.sdk.ads.banner.BannerListener;
-import com.unity3d.services.banners.BannerErrorInfo;
-import com.unity3d.services.banners.BannerView;
-import com.unity3d.services.banners.UnityBannerSize;
 
 public class BannerAd {
 
@@ -272,35 +267,35 @@ public class BannerAd {
                         break;
 
                     case UNITY:
-                        RelativeLayout unityAdView = activity.findViewById(R.id.unity_banner_view_container);
-                        BannerView bottomBanner = new BannerView(activity, unityBannerId, new UnityBannerSize(UNITY_ADS_BANNER_WIDTH_MEDIUM, UNITY_ADS_BANNER_HEIGHT_MEDIUM));
-                        bottomBanner.setListener(new BannerView.IListener() {
-                            @Override
-                            public void onBannerLoaded(BannerView bannerView) {
-                                unityAdView.setVisibility(View.VISIBLE);
-                                Log.d("Unity_banner", "ready");
-                            }
-
-                            @Override
-                            public void onBannerClick(BannerView bannerView) {
-
-                            }
-
-                            @Override
-                            public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo bannerErrorInfo) {
-                                Log.d("SupportTest", "Banner Error" + bannerErrorInfo);
-                                unityAdView.setVisibility(View.GONE);
-                                loadBackupBannerAd();
-                            }
-
-                            @Override
-                            public void onBannerLeftApplication(BannerView bannerView) {
-
-                            }
-                        });
-                        unityAdView.addView(bottomBanner);
-                        bottomBanner.load();
-                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + unityBannerId);
+//                        RelativeLayout unityAdView = activity.findViewById(R.id.unity_banner_view_container);
+//                        BannerView bottomBanner = new BannerView(activity, unityBannerId, new UnityBannerSize(UNITY_ADS_BANNER_WIDTH_MEDIUM, UNITY_ADS_BANNER_HEIGHT_MEDIUM));
+//                        bottomBanner.setListener(new BannerView.IListener() {
+//                            @Override
+//                            public void onBannerLoaded(BannerView bannerView) {
+//                                unityAdView.setVisibility(View.VISIBLE);
+//                                Log.d("Unity_banner", "ready");
+//                            }
+//
+//                            @Override
+//                            public void onBannerClick(BannerView bannerView) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo bannerErrorInfo) {
+//                                Log.d("SupportTest", "Banner Error" + bannerErrorInfo);
+//                                unityAdView.setVisibility(View.GONE);
+//                                loadBackupBannerAd();
+//                            }
+//
+//                            @Override
+//                            public void onBannerLeftApplication(BannerView bannerView) {
+//
+//                            }
+//                        });
+//                        unityAdView.addView(bottomBanner);
+//                        bottomBanner.load();
+//                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + unityBannerId);
                         break;
 
                     case APPLOVIN:
@@ -567,34 +562,34 @@ public class BannerAd {
                         break;
 
                     case UNITY:
-                        RelativeLayout unityAdView = activity.findViewById(R.id.unity_banner_view_container);
-                        BannerView bottomBanner = new BannerView(activity, unityBannerId, new UnityBannerSize(UNITY_ADS_BANNER_WIDTH_MEDIUM, UNITY_ADS_BANNER_HEIGHT_MEDIUM));
-                        bottomBanner.setListener(new BannerView.IListener() {
-                            @Override
-                            public void onBannerLoaded(BannerView bannerView) {
-                                unityAdView.setVisibility(View.VISIBLE);
-                                Log.d("Unity_banner", "ready");
-                            }
-
-                            @Override
-                            public void onBannerClick(BannerView bannerView) {
-
-                            }
-
-                            @Override
-                            public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo bannerErrorInfo) {
-                                Log.d("SupportTest", "Banner Error" + bannerErrorInfo);
-                                unityAdView.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onBannerLeftApplication(BannerView bannerView) {
-
-                            }
-                        });
-                        unityAdView.addView(bottomBanner);
-                        bottomBanner.load();
-                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + unityBannerId);
+//                        RelativeLayout unityAdView = activity.findViewById(R.id.unity_banner_view_container);
+//                        BannerView bottomBanner = new BannerView(activity, unityBannerId, new UnityBannerSize(UNITY_ADS_BANNER_WIDTH_MEDIUM, UNITY_ADS_BANNER_HEIGHT_MEDIUM));
+//                        bottomBanner.setListener(new BannerView.IListener() {
+//                            @Override
+//                            public void onBannerLoaded(BannerView bannerView) {
+//                                unityAdView.setVisibility(View.VISIBLE);
+//                                Log.d("Unity_banner", "ready");
+//                            }
+//
+//                            @Override
+//                            public void onBannerClick(BannerView bannerView) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo bannerErrorInfo) {
+//                                Log.d("SupportTest", "Banner Error" + bannerErrorInfo);
+//                                unityAdView.setVisibility(View.GONE);
+//                            }
+//
+//                            @Override
+//                            public void onBannerLeftApplication(BannerView bannerView) {
+//
+//                            }
+//                        });
+//                        unityAdView.addView(bottomBanner);
+//                        bottomBanner.load();
+//                        Log.d(TAG, adNetwork + " Banner Ad unit Id : " + unityBannerId);
                         break;
 
                     case APPLOVIN:

@@ -13,22 +13,20 @@ import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 import static com.solodroid.ads.sdk.util.Constant.UNITY;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.util.Log;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.applovin.sdk.AppLovinMediationProvider;
 import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.ironsource.mediationsdk.IronSource;
+import com.solodroid.ads.sdk.R;
 import com.solodroid.ads.sdk.helper.AudienceNetworkInitializeHelper;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.StartAppSDK;
-import com.unity3d.ads.IUnityAdsInitializationListener;
-import com.unity3d.ads.UnityAds;
-import com.unity3d.mediation.IInitializationListener;
-import com.unity3d.mediation.InitializationConfiguration;
-import com.unity3d.mediation.UnityMediation;
-import com.unity3d.mediation.errors.SdkInitializationError;
 
 import java.util.Map;
 
@@ -131,20 +129,25 @@ public class AdNetwork {
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
-                        InitializationConfiguration configuration = InitializationConfiguration.builder()
-                                .setGameId(unityGameId)
-                                .setInitializationListener(new IInitializationListener() {
-                                    @Override
-                                    public void onInitializationComplete() {
-                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
-                                    }
-
-                                    @Override
-                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
-                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
-                                    }
-                                }).build();
-                        UnityMediation.initialize(configuration);
+                        new AlertDialog.Builder(activity)
+                                .setTitle("Unity Ads Removal")
+                                .setMessage(activity.getString(R.string.unity_ads_announcement))
+                                .setPositiveButton("DISMISS", null)
+                                .show();
+//                        InitializationConfiguration configuration = InitializationConfiguration.builder()
+//                                .setGameId(unityGameId)
+//                                .setInitializationListener(new IInitializationListener() {
+//                                    @Override
+//                                    public void onInitializationComplete() {
+//                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
+//                                    }
+//
+//                                    @Override
+//                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
+//                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
+//                                    }
+//                                }).build();
+//                        UnityMediation.initialize(configuration);
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:
@@ -194,20 +197,20 @@ public class AdNetwork {
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
-                        InitializationConfiguration configuration = InitializationConfiguration.builder()
-                                .setGameId(unityGameId)
-                                .setInitializationListener(new IInitializationListener() {
-                                    @Override
-                                    public void onInitializationComplete() {
-                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
-                                    }
-
-                                    @Override
-                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
-                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
-                                    }
-                                }).build();
-                        UnityMediation.initialize(configuration);
+//                        InitializationConfiguration configuration = InitializationConfiguration.builder()
+//                                .setGameId(unityGameId)
+//                                .setInitializationListener(new IInitializationListener() {
+//                                    @Override
+//                                    public void onInitializationComplete() {
+//                                        Log.d(TAG, "Unity Mediation is successfully initialized. with ID : " + unityGameId);
+//                                    }
+//
+//                                    @Override
+//                                    public void onInitializationFailed(SdkInitializationError errorCode, String msg) {
+//                                        Log.d(TAG, "Unity Mediation Failed to Initialize : " + msg);
+//                                    }
+//                                }).build();
+//                        UnityMediation.initialize(configuration);
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:

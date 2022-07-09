@@ -4,5 +4,6 @@
     <string name="txt_ad">Ad</string>
     <string name="txt_advertiser">Advertiser</string>
     <string name="img_content_description">TODO</string>
+    <string name="unity_ads_announcement">Following up on the new Google Play rules regarding the error message received due to the Non Compliant SDK from Unity Ads SDK issue, we have temporarily removed the integration of ads using Unity Ads in the Multiple Ad Networks SDK for an indefinite period of time until this issue is resolved by the Official Unity Technologies Developer Team.\n\nPlease change your ad type in the admin panel or json remote configuration with another ad network such as AdMob, Start.io, AppLovin Max, AppLovin Discovery, IronSource or Audience Network Bidding.</string>
 
 </resources>

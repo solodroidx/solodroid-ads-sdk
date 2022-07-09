@@ -16,16 +16,16 @@ allprojects {
         google()
         mavenCentral()
         //noinspection JcenterRepositoryObsolete
-        jcenter()
+        //jcenter()
         maven {
             url 'https://jitpack.io'
         }
         maven {
             url 'https://android-sdk.is.com/'
         }
-        maven {
-            url 'https://unity3ddist.jfrog.io/artifactory/unity-mediation-mvn-prod-local/'
-        }
+        //maven {
+        //    url 'https://unity3ddist.jfrog.io/artifactory/unity-mediation-mvn-prod-local/'
+        //}
     }
 }
 
