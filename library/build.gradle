@@ -45,9 +45,9 @@ dependencies {
     implementation 'com.facebook.android:audience-network-sdk:6.11.0'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:applovin:11.4.3.0'
+    implementation 'com.google.ads.mediation:applovin:11.4.4.0'
     //implementation 'com.google.ads.mediation:unity:4.2.1.1'
-    implementation 'com.google.ads.mediation:ironsource:7.2.2.0'
+    implementation 'com.google.ads.mediation:ironsource:7.2.3.0'
     implementation 'com.google.ads.mediation:facebook:6.11.0.0'
 
     //AppLovin mediation
