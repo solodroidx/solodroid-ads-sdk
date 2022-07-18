@@ -14,6 +14,7 @@ import static com.solodroid.ads.sdk.util.Constant.UNITY;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.text.Html;
 import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
@@ -129,11 +130,13 @@ public class AdNetwork {
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
-                        new AlertDialog.Builder(activity)
-                                .setTitle("Unity Ads Removal")
-                                .setMessage(activity.getString(R.string.unity_ads_announcement))
-                                .setPositiveButton("DISMISS", null)
-                                .show();
+                        if (debug) {
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("Unity Ads Removal")
+                                    .setMessage(Html.fromHtml(activity.getString(R.string.unity_ads_announcement)))
+                                    .setPositiveButton("DISMISS", null)
+                                    .show();
+                        }
 //                        InitializationConfiguration configuration = InitializationConfiguration.builder()
 //                                .setGameId(unityGameId)
 //                                .setInitializationListener(new IInitializationListener() {
