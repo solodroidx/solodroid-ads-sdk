@@ -47,6 +47,12 @@
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_video_large.xml" value="0.3875" />
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_video_small.xml" value="0.3875" />
         <entry key="demo/src/main/res/layout/activity_main.xml" value="0.21388888888888888" />
+        <entry key="library/src/main/res/drawable/gnt_ad_button.xml" value="0.108" />
+        <entry key="library/src/main/res/drawable/gnt_ad_icon.xml" value="0.108" />
+        <entry key="library/src/main/res/layout/gnt_applovin_dark_medium_template_view.xml" value="0.31666666666666665" />
+        <entry key="library/src/main/res/layout/gnt_applovin_medium_template_view.xml" value="0.335" />
+        <entry key="library/src/main/res/layout/view_native_ad_medium.xml" value="0.20185185185185187" />
+        <entry key="library/src/main/res/layout/view_native_ad_news.xml" value="0.33308004052684903" />
       </map>
     </option>
   </component>

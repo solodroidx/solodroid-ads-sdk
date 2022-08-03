@@ -50,8 +50,8 @@ dependencies {
 
     //AppLovin mediation
     implementation 'com.applovin.mediation:google-adapter:21.1.0.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:7.2.3.0.0'
-    implementation 'com.applovin.mediation:facebook-adapter:6.11.0.2'
+    implementation 'com.applovin.mediation:ironsource-adapter:7.2.3.1.0'
+    implementation 'com.applovin.mediation:facebook-adapter:6.11.0.5'
 
     //ironSource mediation
     implementation 'com.ironsource.adapters:admobadapter:4.3.28'

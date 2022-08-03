@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initAds();
+        loadNativeAd();
         loadBannerAd();
         loadInterstitialAd();
-        loadNativeAd();
 
         findViewById(R.id.btn_interstitial).setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), SecondActivity.class));
