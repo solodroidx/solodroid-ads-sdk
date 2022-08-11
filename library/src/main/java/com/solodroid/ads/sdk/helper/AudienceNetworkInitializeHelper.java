@@ -31,6 +31,21 @@ public class AudienceNetworkInitializeHelper implements AudienceNetworkAds.InitL
         }
     }
 
+    public static void initializeAd(Context context, boolean debug) {
+        if (!AudienceNetworkAds.isInitialized(context)) {
+            if (debug) {
+                AdSettings.turnOnSDKDebugger(context);
+                AdSettings.setTestMode(true);
+                AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CRASH_DEBUG_MODE);
+            }
+
+            AudienceNetworkAds
+                    .buildInitSettings(context)
+                    .withInitListener(new AudienceNetworkInitializeHelper())
+                    .initialize();
+        }
+    }
+
     @Override
     public void onInitialized(AudienceNetworkAds.InitResult result) {
         Log.d(AudienceNetworkAds.TAG, result.getMessage());

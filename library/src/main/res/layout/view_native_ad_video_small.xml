@@ -26,6 +26,12 @@
             android:visibility="gone"
             app:gnt_template_type="@layout/gnt_ad_manager_video_small_template_view" />
 
+        <com.facebook.ads.NativeAdLayout
+            android:id="@+id/fan_native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <include
             android:id="@+id/startapp_native_ad_container"
             layout="@layout/gnt_startapp_video_small_template_view"

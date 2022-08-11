@@ -16,6 +16,10 @@ public class Constant {
     public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/6499/example/native";
     public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/6499/example/app-open";
 
+    public static final String FAN_BANNER_ID = "IMG_16_9_APP_INSTALL#782095786538726_782096253205346";
+    public static final String FAN_INTERSTITIAL_ID = "IMG_16_9_APP_INSTALL#782095786538726_782096399871998";
+    public static final String FAN_NATIVE_ID = "IMG_16_9_APP_INSTALL#782095786538726_782096519871986";
+
     public static final String STARTAPP_APP_ID = "0";
 
     public static final String UNITY_GAME_ID = "4089993";
@@ -32,5 +36,12 @@ public class Constant {
     public static final String IRONSOURCE_APP_KEY = "85460dcd";
     public static final String IRONSOURCE_BANNER_ID = "DefaultBanner";
     public static final String IRONSOURCE_INTERSTITIAL_ID = "DefaultInterstitial";
+
+    public static final String STYLE_NEWS = "news";
+    public static final String STYLE_RADIO = "radio";
+    public static final String STYLE_VIDEO_SMALL = "video_small";
+    public static final String STYLE_VIDEO_LARGE = "video_large";
+    public static final String STYLE_STREAM = "stream";
+    public static final String STYLE_DEFAULT = "default";
 
 }

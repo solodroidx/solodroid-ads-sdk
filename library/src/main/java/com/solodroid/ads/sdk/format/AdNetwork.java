@@ -5,6 +5,11 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.FAN;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
@@ -13,7 +18,6 @@ import static com.solodroid.ads.sdk.util.Constant.STARTAPP;
 import static com.solodroid.ads.sdk.util.Constant.UNITY;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.text.Html;
 import android.util.Log;
 
@@ -113,6 +117,8 @@ public class AdNetwork {
                 switch (adNetwork) {
                     case ADMOB:
                     case GOOGLE_AD_MANAGER:
+                    case FAN_BIDDING_ADMOB:
+                    case FAN_BIDDING_AD_MANAGER:
                         MobileAds.initialize(activity, initializationStatus -> {
                             Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
                             for (String adapterClass : statusMap.keySet()) {
@@ -121,7 +127,10 @@ public class AdNetwork {
                                 Log.d(TAG, String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, adapterStatus.getDescription(), adapterStatus.getLatency()));
                             }
                         });
-                        AudienceNetworkInitializeHelper.initialize(activity);
+                        AudienceNetworkInitializeHelper.initializeAd(activity, debug);
+                        break;
+                    case FAN:
+                        AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
                     case STARTAPP:
                         StartAppSDK.init(activity, startappAppId, false);
@@ -154,6 +163,7 @@ public class AdNetwork {
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:
+                    case FAN_BIDDING_APPLOVIN_MAX:
                         AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
                         AppLovinSdk.getInstance(activity).initializeSdk(config -> {
                         });
@@ -169,6 +179,7 @@ public class AdNetwork {
                         break;
 
                     case IRONSOURCE:
+                    case FAN_BIDDING_IRONSOURCE:
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
                         IronSource.init(activity, ironSourceAppKey);
@@ -183,6 +194,8 @@ public class AdNetwork {
                 switch (backupAdNetwork) {
                     case ADMOB:
                     case GOOGLE_AD_MANAGER:
+                    case FAN_BIDDING_ADMOB:
+                    case FAN_BIDDING_AD_MANAGER:
                         MobileAds.initialize(activity, initializationStatus -> {
                             Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
                             for (String adapterClass : statusMap.keySet()) {
@@ -217,6 +230,7 @@ public class AdNetwork {
                         break;
                     case APPLOVIN:
                     case APPLOVIN_MAX:
+                    case FAN_BIDDING_APPLOVIN_MAX:
                         AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
                         AppLovinSdk.getInstance(activity).initializeSdk(config -> {
                         });
@@ -232,6 +246,7 @@ public class AdNetwork {
                         break;
 
                     case IRONSOURCE:
+                    case FAN_BIDDING_IRONSOURCE:
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
                         IronSource.init(activity, ironSourceAppKey);

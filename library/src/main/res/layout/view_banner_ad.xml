@@ -17,6 +17,12 @@
         android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/fan_banner_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <RelativeLayout
         android:id="@+id/startapp_banner_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -8,17 +8,22 @@ public class Constant {
     //ad option
     public static final String ADMOB = "admob";
     public static final String GOOGLE_AD_MANAGER = "google_ad_manager";
+    public static final String FAN = "fan";
     public static final String STARTAPP = "startapp";
     public static final String UNITY = "unity";
     public static final String APPLOVIN = "applovin";
     public static final String APPLOVIN_MAX = "applovin_max";
     public static final String APPLOVIN_DISCOVERY = "applovin_discovery";
-
+    public static final String IRONSOURCE = "ironsource";
+    public static final String NONE = "none";
     //mopub ads is deprecated and has been acquired by applovin
     public static final String MOPUB = "mopub";
 
-    public static final String IRONSOURCE = "ironsource";
-    public static final String NONE = "none";
+    //ad bidding
+    public static final String FAN_BIDDING_ADMOB = "fan_bidding_admob";
+    public static final String FAN_BIDDING_AD_MANAGER = "fan_bidding_ad_manager";
+    public static final String FAN_BIDDING_APPLOVIN_MAX = "fan_bidding_applovin_max";
+    public static final String FAN_BIDDING_IRONSOURCE = "fan_bidding_ironsource";
 
     //native ad styles
     public static final String STYLE_NEWS = "news";

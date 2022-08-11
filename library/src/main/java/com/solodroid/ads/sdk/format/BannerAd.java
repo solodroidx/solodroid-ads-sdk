@@ -5,6 +5,11 @@ import static com.solodroid.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
 import static com.solodroid.ads.sdk.util.Constant.APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.FAN;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_APPLOVIN_MAX;
+import static com.solodroid.ads.sdk.util.Constant.FAN_BIDDING_IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.solodroid.ads.sdk.util.Constant.IRONSOURCE;
 import static com.solodroid.ads.sdk.util.Constant.MOPUB;
@@ -31,6 +36,8 @@ import com.applovin.sdk.AppLovinAd;
 import com.applovin.sdk.AppLovinAdLoadListener;
 import com.applovin.sdk.AppLovinAdSize;
 import com.applovin.sdk.AppLovinSdkUtils;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdSize;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -54,6 +61,7 @@ public class BannerAd {
         private final Activity activity;
         private AdView adView;
         private AdManagerAdView adManagerAdView;
+        private com.facebook.ads.AdView fanAdView;
         private AppLovinAdView appLovinAdView;
         FrameLayout ironSourceBannerView;
         private IronSourceBannerLayout ironSourceBannerLayout;
@@ -63,6 +71,7 @@ public class BannerAd {
         private String backupAdNetwork = "";
         private String adMobBannerId = "";
         private String googleAdManagerBannerId = "";
+        private String fanBannerId = "";
         private String unityBannerId = "";
         private String appLovinBannerId = "";
         private String appLovinBannerZoneId = "";
@@ -103,6 +112,11 @@ public class BannerAd {
 
         public Builder setGoogleAdManagerBannerId(String googleAdManagerBannerId) {
             this.googleAdManagerBannerId = googleAdManagerBannerId;
+            return this;
+        }
+
+        public Builder setFanBannerId(String fanBannerId) {
+            this.fanBannerId = fanBannerId;
             return this;
         }
 
@@ -150,6 +164,7 @@ public class BannerAd {
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (adNetwork) {
                     case ADMOB:
+                    case FAN_BIDDING_ADMOB:
                         FrameLayout adContainerView = activity.findViewById(R.id.admob_banner_view_container);
                         adContainerView.post(() -> {
                             adView = new AdView(activity);
@@ -194,6 +209,7 @@ public class BannerAd {
                         break;
 
                     case GOOGLE_AD_MANAGER:
+                    case FAN_BIDDING_AD_MANAGER:
                         FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
                         googleAdContainerView.post(() -> {
                             adManagerAdView = new AdManagerAdView(activity);
@@ -237,6 +253,37 @@ public class BannerAd {
                                 }
                             });
                         });
+                        break;
+
+                    case FAN:
+                        fanAdView = new com.facebook.ads.AdView(activity, fanBannerId, AdSize.BANNER_HEIGHT_50);
+                        RelativeLayout fanAdViewContainer = activity.findViewById(R.id.fan_banner_view_container);
+                        fanAdViewContainer.addView(fanAdView);
+                        com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
+                            @Override
+                            public void onError(Ad ad, com.facebook.ads.AdError adError) {
+                                fanAdViewContainer.setVisibility(View.GONE);
+                                loadBackupBannerAd();
+                                Log.d(TAG, "Error load FAN : " + adError.getErrorMessage());
+                            }
+
+                            @Override
+                            public void onAdLoaded(Ad ad) {
+                                fanAdViewContainer.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAdClicked(Ad ad) {
+
+                            }
+
+                            @Override
+                            public void onLoggingImpression(Ad ad) {
+
+                            }
+                        };
+                        com.facebook.ads.AdView.AdViewLoadConfig loadAdConfig = fanAdView.buildLoadAdConfig().withAdListener(adListener).build();
+                        fanAdView.loadAd(loadAdConfig);
                         break;
 
                     case STARTAPP:
@@ -300,6 +347,7 @@ public class BannerAd {
 
                     case APPLOVIN:
                     case APPLOVIN_MAX:
+                    case FAN_BIDDING_APPLOVIN_MAX:
                         RelativeLayout appLovinAdView = activity.findViewById(R.id.applovin_banner_view_container);
                         MaxAdView maxAdView = new MaxAdView(appLovinBannerId, activity);
                         maxAdView.setListener(new MaxAdViewAdListener() {
@@ -389,6 +437,7 @@ public class BannerAd {
                         break;
 
                     case IRONSOURCE:
+                    case FAN_BIDDING_IRONSOURCE:
                         ironSourceBannerView = activity.findViewById(R.id.ironsource_banner_view_container);
                         ISBannerSize size = ISBannerSize.BANNER;
                         ironSourceBannerLayout = IronSource.createBanner(activity, size);
@@ -448,6 +497,7 @@ public class BannerAd {
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (backupAdNetwork) {
                     case ADMOB:
+                    case FAN_BIDDING_ADMOB:
                         FrameLayout adContainerView = activity.findViewById(R.id.admob_banner_view_container);
                         adContainerView.post(() -> {
                             adView = new AdView(activity);
@@ -491,6 +541,7 @@ public class BannerAd {
                         break;
 
                     case GOOGLE_AD_MANAGER:
+                    case FAN_BIDDING_AD_MANAGER:
                         FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
                         googleAdContainerView.post(() -> {
                             adManagerAdView = new AdManagerAdView(activity);
@@ -533,6 +584,36 @@ public class BannerAd {
                                 }
                             });
                         });
+                        break;
+
+                    case FAN:
+                        fanAdView = new com.facebook.ads.AdView(activity, fanBannerId, AdSize.BANNER_HEIGHT_50);
+                        RelativeLayout fanAdViewContainer = activity.findViewById(R.id.fan_banner_view_container);
+                        fanAdViewContainer.addView(fanAdView);
+                        com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
+                            @Override
+                            public void onError(Ad ad, com.facebook.ads.AdError adError) {
+                                fanAdViewContainer.setVisibility(View.GONE);
+                                Log.d(TAG, "Error load FAN : " + adError.getErrorMessage());
+                            }
+
+                            @Override
+                            public void onAdLoaded(Ad ad) {
+                                fanAdViewContainer.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAdClicked(Ad ad) {
+
+                            }
+
+                            @Override
+                            public void onLoggingImpression(Ad ad) {
+
+                            }
+                        };
+                        com.facebook.ads.AdView.AdViewLoadConfig loadAdConfig = fanAdView.buildLoadAdConfig().withAdListener(adListener).build();
+                        fanAdView.loadAd(loadAdConfig);
                         break;
 
                     case STARTAPP:
@@ -594,6 +675,7 @@ public class BannerAd {
 
                     case APPLOVIN:
                     case APPLOVIN_MAX:
+                    case FAN_BIDDING_APPLOVIN_MAX:
                         RelativeLayout appLovinAdView = activity.findViewById(R.id.applovin_banner_view_container);
                         MaxAdView maxAdView = new MaxAdView(appLovinBannerId, activity);
                         maxAdView.setListener(new MaxAdViewAdListener() {
@@ -681,6 +763,7 @@ public class BannerAd {
                         break;
 
                     case IRONSOURCE:
+                    case FAN_BIDDING_IRONSOURCE:
                         ironSourceBannerView = activity.findViewById(R.id.ironsource_banner_view_container);
                         ISBannerSize size = ISBannerSize.BANNER;
                         ironSourceBannerLayout = IronSource.createBanner(activity, size);
