@@ -30,6 +30,7 @@
             android:id="@+id/fan_native_ad_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:visibility="gone" />
 
         <include
