@@ -38,10 +38,10 @@ dependencies {
 
     //Primary Ad Networks
     implementation 'com.google.android.gms:play-services-ads:21.1.0'
-    implementation 'com.startapp:inapp-sdk:4.10.1'
+    implementation 'com.startapp:inapp-sdk:4.10.2'
     implementation 'com.applovin:applovin-sdk:11.4.4'
     //implementation 'com.unity3d.ads:unity-ads:4.2.1'
-    implementation 'com.ironsource.sdk:mediationsdk:7.2.4'
+    implementation 'com.ironsource.sdk:mediationsdk:7.2.4.1'
     implementation 'com.facebook.android:audience-network-sdk:6.11.0'
 
     //AdMob mediation
@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.ironsource.adapters:admobadapter:4.3.29'
     implementation 'com.ironsource.adapters:applovinadapter:4.3.33'
     //implementation 'com.ironsource.adapters:unityadsadapter:4.3.21'
-    implementation 'com.ironsource.adapters:facebookadapter:4.3.36'
+    implementation 'com.ironsource.adapters:facebookadapter:4.3.37'
 
     //Unity ads mediation
     //implementation "com.unity3d.mediation:mediation-sdk:0.4.0"
