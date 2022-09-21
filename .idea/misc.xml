@@ -3,57 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/layout/activity_main.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/layout/activity_second.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/layout/activity_splash.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4036458333333333" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/demo/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.4036458333333333" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/drawable/gnt_ad_button.xml" value="0.246" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/drawable/gnt_ad_icon.xml" value="0.23" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_news_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_radio_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_ad_manager_video_small_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_medium_template_view_no_round.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_news_template_view.xml" value="0.39947916666666666" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_radio_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_admob_video_small_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_dark_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_dark_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_dark_news_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_dark_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_dark_video_small_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_news_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_applovin_video_small_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_news_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_radio_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_fan_video_small_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_medium_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_news_template_view.xml" value="0.39947916666666666" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_radio_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_video_large_template_view.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/gnt_startapp_video_small_template_view.xml" value="0.3875" />
         <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_banner_ad.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_large.xml" value="0.21927083333333333" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_medium.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_medium_no_round.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_news.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_radio.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_video_large.xml" value="0.3875" />
-        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_video_small.xml" value="0.3875" />
+        <entry key="..\:/Solodroid/libraries/SolodroidAdsSDK/library/src/main/res/layout/view_native_ad_large.xml" value="0.3875" />
       </map>
     </option>
   </component>

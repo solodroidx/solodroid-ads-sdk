@@ -30,6 +30,10 @@ public class Tools {
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
     }
 
+    public static AdSize getAdSizeMREC() {
+        return AdSize.MEDIUM_RECTANGLE;
+    }
+
     public static AdRequest getAdRequest(Activity activity, Boolean legacyGDPR) {
         Bundle extras = new FacebookExtras().setNativeBanner(true).build();
         if (legacyGDPR) {

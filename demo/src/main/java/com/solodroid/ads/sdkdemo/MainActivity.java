@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.solodroid.ads.sdk.format.AdNetwork;
 import com.solodroid.ads.sdk.format.BannerAd;
 import com.solodroid.ads.sdk.format.InterstitialAd;
+import com.solodroid.ads.sdk.format.MediumRectangleAd;
 import com.solodroid.ads.sdk.format.NativeAd;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     AdNetwork.Initialize adNetwork;
     BannerAd.Builder bannerAd;
+    MediumRectangleAd.Builder mediumRectangleAd;
     InterstitialAd.Builder interstitialAd;
     NativeAd.Builder nativeAd;
 
@@ -56,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadBannerAd() {
         bannerAd = new BannerAd.Builder(this)
+                .setAdStatus(Constant.AD_STATUS)
+                .setAdNetwork(Constant.AD_NETWORK)
+                .setBackupAdNetwork(Constant.BACKUP_AD_NETWORK)
+                .setAdMobBannerId(Constant.ADMOB_BANNER_ID)
+                .setGoogleAdManagerBannerId(Constant.GOOGLE_AD_MANAGER_BANNER_ID)
+                .setFanBannerId(Constant.FAN_BANNER_ID)
+                .setUnityBannerId(Constant.UNITY_BANNER_ID)
+                .setAppLovinBannerId(Constant.APPLOVIN_BANNER_ID)
+                .setAppLovinBannerZoneId(Constant.APPLOVIN_BANNER_ZONE_ID)
+                .setIronSourceBannerId(Constant.IRONSOURCE_BANNER_ID)
+                .setDarkTheme(false)
+                .build();
+    }
+
+    private void loadMediumRectangleAd() {
+        mediumRectangleAd = new MediumRectangleAd.Builder(this)
                 .setAdStatus(Constant.AD_STATUS)
                 .setAdNetwork(Constant.AD_NETWORK)
                 .setBackupAdNetwork(Constant.BACKUP_AD_NETWORK)
