@@ -801,52 +801,124 @@ public class NativeAdFragment {
 
         public MaxNativeAdView createNativeAdView(String nativeAdStyle) {
             MaxNativeAdViewBinder binder;
-            if (Constant.STYLE_RADIO.equals(nativeAdStyle)) {
-                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_radio_template_view)
-                        .setTitleTextViewId(R.id.title_text_view)
-                        .setBodyTextViewId(R.id.body_text_view)
-                        .setAdvertiserTextViewId(R.id.advertiser_textView)
-                        .setIconImageViewId(R.id.icon_image_view)
-                        .setMediaContentViewGroupId(R.id.media_view_container)
-                        .setOptionsContentViewGroupId(R.id.ad_options_view)
-                        .setCallToActionButtonId(R.id.cta_button)
-                        .build();
-            } else {
-                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_medium_template_view)
-                        .setTitleTextViewId(R.id.title_text_view)
-                        .setBodyTextViewId(R.id.body_text_view)
-                        .setAdvertiserTextViewId(R.id.advertiser_textView)
-                        .setIconImageViewId(R.id.icon_image_view)
-                        .setMediaContentViewGroupId(R.id.media_view_container)
-                        .setOptionsContentViewGroupId(R.id.ad_options_view)
-                        .setCallToActionButtonId(R.id.cta_button)
-                        .build();
+            switch (nativeAdStyle) {
+                case Constant.STYLE_NEWS:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_news_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_RADIO:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_radio_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_VIDEO_LARGE:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_video_large_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_VIDEO_SMALL:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_video_small_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                default:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_medium_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
             }
             return new MaxNativeAdView(binder, activity);
         }
 
         public MaxNativeAdView createNativeAdViewDark(String nativeAdStyle) {
             MaxNativeAdViewBinder binder;
-            if (Constant.STYLE_RADIO.equals(nativeAdStyle)) {
-                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_radio_template_view)
-                        .setTitleTextViewId(R.id.title_text_view)
-                        .setBodyTextViewId(R.id.body_text_view)
-                        .setAdvertiserTextViewId(R.id.advertiser_textView)
-                        .setIconImageViewId(R.id.icon_image_view)
-                        .setMediaContentViewGroupId(R.id.media_view_container)
-                        .setOptionsContentViewGroupId(R.id.ad_options_view)
-                        .setCallToActionButtonId(R.id.cta_button)
-                        .build();
-            } else {
-                binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_medium_template_view)
-                        .setTitleTextViewId(R.id.title_text_view)
-                        .setBodyTextViewId(R.id.body_text_view)
-                        .setAdvertiserTextViewId(R.id.advertiser_textView)
-                        .setIconImageViewId(R.id.icon_image_view)
-                        .setMediaContentViewGroupId(R.id.media_view_container)
-                        .setOptionsContentViewGroupId(R.id.ad_options_view)
-                        .setCallToActionButtonId(R.id.cta_button)
-                        .build();
+            switch (nativeAdStyle) {
+                case Constant.STYLE_NEWS:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_news_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_RADIO:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_radio_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_VIDEO_LARGE:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_video_large_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                case Constant.STYLE_VIDEO_SMALL:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_video_small_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
+                default:
+                    binder = new MaxNativeAdViewBinder.Builder(R.layout.gnt_applovin_dark_medium_template_view)
+                            .setTitleTextViewId(R.id.title_text_view)
+                            .setBodyTextViewId(R.id.body_text_view)
+                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                            .setIconImageViewId(R.id.icon_image_view)
+                            .setMediaContentViewGroupId(R.id.media_view_container)
+                            .setOptionsContentViewGroupId(R.id.ad_options_view)
+                            .setCallToActionButtonId(R.id.cta_button)
+                            .build();
+                    break;
             }
             return new MaxNativeAdView(binder, activity);
         }

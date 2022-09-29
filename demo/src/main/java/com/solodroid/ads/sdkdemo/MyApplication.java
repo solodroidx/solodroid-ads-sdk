@@ -17,7 +17,6 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDex;
 
-import com.google.android.gms.ads.MobileAds;
 import com.solodroid.ads.sdk.format.AppOpenAdManager;
 import com.solodroid.ads.sdk.format.AppOpenAdMob;
 import com.solodroid.ads.sdk.util.OnShowAdCompleteListener;
@@ -38,8 +37,6 @@ public class MyApplication extends Application implements ActivityLifecycleCallb
         super.onCreate();
         mInstance = this;
         this.registerActivityLifecycleCallbacks(this);
-        MobileAds.initialize(this, initializationStatus -> {
-        });
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdMob = new AppOpenAdMob();
         appOpenAdManager = new AppOpenAdManager();
