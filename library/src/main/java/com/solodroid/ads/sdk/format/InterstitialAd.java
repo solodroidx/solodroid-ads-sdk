@@ -788,7 +788,7 @@ public class InterstitialAd {
                         case APPLOVIN:
                         case APPLOVIN_MAX:
                         case FAN_BIDDING_APPLOVIN_MAX:
-                            if (maxInterstitialAd.isReady()) {
+                            if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
                                 Log.d(TAG, "ready : " + counter);
                                 maxInterstitialAd.showAd();
                                 Log.d(TAG, "show ad");
@@ -883,7 +883,7 @@ public class InterstitialAd {
                     case APPLOVIN:
                     case APPLOVIN_MAX:
                     case FAN_BIDDING_APPLOVIN_MAX:
-                        if (maxInterstitialAd.isReady()) {
+                        if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
                             maxInterstitialAd.showAd();
                         }
                         break;
