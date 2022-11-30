@@ -3,10 +3,10 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdkVersion 33
     defaultConfig {
-        minSdk 21
-        targetSdk 30
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0.0"
         consumerProguardFiles "consumer-rules.pro"
@@ -46,7 +46,7 @@ dependencies {
     //AdMob mediation
     implementation 'com.google.ads.mediation:applovin:11.5.5.0'
     implementation 'com.google.ads.mediation:ironsource:7.2.5.0'
-    implementation 'com.google.ads.mediation:facebook:6.12.0.0'
+    implementation 'com.google.ads.mediation:facebook:6.11.0.1'
 
     //AppLovin mediation
     implementation 'com.applovin.mediation:google-adapter:21.3.0.0'
