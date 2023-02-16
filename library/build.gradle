@@ -49,9 +49,15 @@ dependencies {
     implementation 'com.google.ads.mediation:facebook:6.11.0.1'
 
     //AppLovin mediation
-    implementation 'com.applovin.mediation:google-adapter:21.3.0.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:7.2.5.0.0'
-    implementation 'com.applovin.mediation:facebook-adapter:6.12.0.0'
+    implementation 'com.applovin.mediation:adcolony-adapter:+'
+    implementation 'com.applovin.mediation:google-ad-manager-adapter:+'
+    implementation 'com.applovin.mediation:google-adapter:+'
+    implementation 'com.applovin.mediation:ironsource-adapter:+'
+    implementation 'com.applovin.mediation:facebook-adapter:+'
+    implementation 'com.applovin.mediation:mytarget-adapter:+'
+    implementation 'com.applovin.mediation:unityads-adapter:+'
+    implementation 'com.applovin.mediation:verizonads-adapter:+'
+    implementation 'com.applovin.mediation:yandex-adapter:+'
 
     //ironSource mediation
     implementation 'com.ironsource.adapters:admobadapter:4.3.31'
